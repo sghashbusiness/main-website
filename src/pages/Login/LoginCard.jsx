@@ -43,15 +43,13 @@ export default function LoginCard({ onFlipToRecovery }) {
   const isFormValid = identifier.trim().length > 0 && password.length > 0;
 
   return (
-    <GlassCard className="login-card login-card--light">
+    <GlassCard className="login-card login-card--dark">
       <div className="login-card__header">
         <div className="login-card__logo-wrapper">
           <img src="/sghash-green-logo.png" alt="SGHASH Icon" className="login-card__logo-icon" />
           <img src="/sghash-logo-text-new.png" alt="SGHASH ONE" className="login-card__logo-text" />
         </div>
         <div className="login-card__brand-subtitle">
-          <span className="login-card__brand-line"></span>
-
           <span className="login-card__brand-line"></span>
         </div>
         <p className="login-card__subtitle">Sign in to your SGHASH workspace</p>
