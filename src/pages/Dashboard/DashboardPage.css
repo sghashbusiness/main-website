@@ -1,0 +1,141 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   Dashboard Styles
+   Layout grids and spacing for the Executive Control Center
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* ── Global Controls Bar ───────────────────────────────────────────────*/
+.dashboard__controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.dashboard__controls-bar:hover {
+  box-shadow: 0 12px 35px rgba(26, 123, 65, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.dashboard__controls-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.dashboard__controls-right {
+  display: flex;
+  align-items: center;
+}
+
+/* ── Content Sections ──────────────────────────────────────────────────*/
+.dashboard__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.dashboard__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* ── Top Grid (KPIs + Tender) ──────────────────────────────────────────*/
+.dashboard__top-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-lg);
+  align-items: stretch;
+}
+
+.dashboard__kpi-area {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+.dashboard__tender-area {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ── Logistics Grid ────────────────────────────────────────────────────*/
+.dashboard__logistics-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.dashboard__inventory-area,
+.dashboard__transfers-area,
+.dashboard__gst-area,
+.dashboard__staff-area {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.dashboard__inventory-area:hover,
+.dashboard__transfers-area:hover,
+.dashboard__gst-area:hover,
+.dashboard__staff-area:hover {
+  box-shadow: 0 12px 35px rgba(26, 123, 65, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+/* ── Compliance Grid ───────────────────────────────────────────────────*/
+.dashboard__compliance-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+/* ── Responsive Overrides ──────────────────────────────────────────────*/
+@media (max-width: 1200px) {
+  .dashboard__top-grid,
+  .dashboard__logistics-grid,
+  .dashboard__compliance-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard__kpi-area {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard__controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .dashboard__controls-left {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

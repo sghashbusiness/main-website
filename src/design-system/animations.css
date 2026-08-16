@@ -1,0 +1,327 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   SGHASH Design System — Animations
+   All keyframe definitions and animation utility classes.
+   Includes: card flip, slide transitions, fade, toast, pulse, shimmer.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Login Ambient Background ──────────────────────────────────────────
+   Slow, subtle gradient shift — must NOT compete with glassmorphic card.
+   Uses scale + position to create gentle organic movement.
+──────────────────────────────────────────────────────────────────────── */
+@keyframes ambient-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ── Card Flip (3D) ────────────────────────────────────────────────────
+   Login → Recovery state transition per Architecture spec §2.2.
+   "Seamless 3D flip animation from the Login state to the Recovery state."
+──────────────────────────────────────────────────────────────────────── */
+@keyframes card-flip-to-back {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
+@keyframes card-flip-to-front {
+  from {
+    transform: rotateY(180deg);
+  }
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
+/* ── Slide Animations ──────────────────────────────────────────────────
+   Used for OTP block reveal, password setup transition, form state changes.
+──────────────────────────────────────────────────────────────────────── */
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 300px;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 300px;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+    max-height: 0;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── Fade Animations ───────────────────────────────────────────────────*/
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ── Toast Notifications ───────────────────────────────────────────────
+   Non-blocking error/success notifications per Architecture spec §1.
+   Slide in from top-right, auto-dismiss.
+──────────────────────────────────────────────────────────────────────── */
+@keyframes toast-enter {
+  from {
+    opacity: 0;
+    transform: translateX(100%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes toast-exit {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    max-height: 120px;
+    margin-bottom: var(--space-sm);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%) scale(0.95);
+    max-height: 0;
+    margin-bottom: 0;
+  }
+}
+
+/* ── Loading Spinner ───────────────────────────────────────────────────
+   Inline spinner for submit buttons per Architecture spec §2.1.
+──────────────────────────────────────────────────────────────────────── */
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Pulse / Heartbeat ─────────────────────────────────────────────────
+   For live indicators (transfer queue, pending shipments).
+──────────────────────────────────────────────────────────────────────── */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* ── Shimmer / Skeleton ────────────────────────────────────────────────
+   Loading skeleton placeholder for data-heavy components.
+──────────────────────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ── Modal Backdrop ────────────────────────────────────────────────────*/
+@keyframes backdrop-fade-in {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ── Number Count Up ───────────────────────────────────────────────────
+   For KPI hero metrics that animate on mount.
+──────────────────────────────────────────────────────────────────────── */
+@keyframes count-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Animation Utility Classes
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.anim-fade-in {
+  animation: fade-in var(--transition-base) ease forwards;
+}
+
+.anim-fade-in-scale {
+  animation: fade-in-scale var(--transition-base) ease forwards;
+}
+
+.anim-slide-down {
+  animation: slide-down var(--transition-slow) ease forwards;
+  overflow: hidden;
+}
+
+.anim-slide-up {
+  animation: slide-up var(--transition-slow) ease forwards;
+  overflow: hidden;
+}
+
+.anim-slide-in-right {
+  animation: slide-in-right var(--transition-base) ease forwards;
+}
+
+.anim-slide-out-left {
+  animation: slide-out-left var(--transition-base) ease forwards;
+}
+
+.anim-slide-in-left {
+  animation: slide-in-left var(--transition-base) ease forwards;
+}
+
+.anim-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.anim-spinner {
+  animation: spinner-rotate 0.7s linear infinite;
+}
+
+.anim-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-border-light) 0%,
+    var(--color-canvas) 50%,
+    var(--color-border-light) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.anim-toast-enter {
+  animation: toast-enter 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.anim-toast-exit {
+  animation: toast-exit 0.3s ease forwards;
+}
+
+.anim-count-in {
+  animation: count-fade-in 0.5s ease forwards;
+}
+
+/* ── Stagger Delays ────────────────────────────────────────────────────
+   For sequentially animating list items (metric cards, table rows).
+──────────────────────────────────────────────────────────────────────── */
+.anim-delay-1 { animation-delay: 50ms; }
+.anim-delay-2 { animation-delay: 100ms; }
+.anim-delay-3 { animation-delay: 150ms; }
+.anim-delay-4 { animation-delay: 200ms; }
+.anim-delay-5 { animation-delay: 250ms; }
+.anim-delay-6 { animation-delay: 300ms; }
+
+/* ── Reduced Motion ────────────────────────────────────────────────────
+   Respect user accessibility preferences.
+──────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

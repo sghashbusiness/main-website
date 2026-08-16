@@ -1,0 +1,47 @@
+.otp-input__group {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.otp-input__digit {
+  width: 48px;
+  height: 56px;
+  text-align: center;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-canvas-elevated);
+  color: var(--color-text-primary);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.otp-input__digit:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px var(--color-primary-subtle);
+}
+
+.otp-input--error .otp-input__digit {
+  border-color: var(--color-border-error);
+}
+
+.otp-input--error .otp-input__digit:focus {
+  box-shadow: 0 0 0 3px var(--color-danger-subtle);
+}
+
+.otp-input__digit:disabled {
+  background: var(--color-border-light);
+  cursor: not-allowed;
+}
+
+.otp-input__error {
+  display: block;
+  text-align: center;
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-danger);
+}

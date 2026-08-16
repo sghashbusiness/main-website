@@ -1,0 +1,42 @@
+.inventory-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.inventory-page__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-lg);
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.inventory-page__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* ── Common Panel Styling ──────────────────────────────────────────────*/
+.inventory-panel {
+  background: var(--color-canvas-elevated);
+  border: none;
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-elevated);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.inventory-panel__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}

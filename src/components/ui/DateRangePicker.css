@@ -1,0 +1,176 @@
+.date-picker-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.date-picker__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-canvas-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 220px;
+}
+
+.date-picker__trigger:hover {
+  border-color: var(--color-text-tertiary);
+}
+
+.date-picker__trigger--active {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-subtle);
+}
+
+.date-picker__icon {
+  color: var(--color-text-secondary);
+}
+
+.date-picker__display {
+  flex: 1;
+  text-align: left;
+}
+
+.date-picker__clear {
+  color: var(--color-text-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-xs);
+  transition: all var(--transition-fast);
+}
+
+.date-picker__clear:hover {
+  background: var(--color-border-light);
+  color: var(--color-text-primary);
+}
+
+/* ── Dropdown Calendar ─────────────────────────────────────────────────*/
+.date-picker__dropdown {
+  position: absolute;
+  top: calc(100% + var(--space-xs));
+  right: 0;
+  width: 280px;
+  background: var(--color-canvas-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-dropdown);
+  z-index: var(--z-dropdown);
+  padding: var(--space-md);
+}
+
+.date-picker__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.date-picker__month-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.date-picker__nav-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.date-picker__nav-btn:hover {
+  background: var(--color-border-light);
+  color: var(--color-text-primary);
+}
+
+.date-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: var(--space-md);
+}
+
+.date-picker__day-header {
+  font-size: 10px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  text-align: center;
+  padding: var(--space-xs) 0;
+}
+
+.date-picker__day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.date-picker__day--empty {
+  cursor: default;
+  pointer-events: none;
+}
+
+.date-picker__day:hover:not(.date-picker__day--empty) {
+  background: var(--color-border-light);
+}
+
+/* Selected states */
+.date-picker__day--start,
+.date-picker__day--end {
+  background: var(--color-primary) !important;
+  color: var(--color-text-on-dark);
+  font-weight: var(--font-weight-bold);
+}
+
+.date-picker__day--start {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.date-picker__day--end {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.date-picker__day--single {
+  border-radius: var(--radius-sm) !important;
+}
+
+.date-picker__day--in-range {
+  background: var(--color-primary-subtle);
+  border-radius: 0;
+  color: var(--color-text-primary);
+}
+
+.date-picker__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-sm);
+  margin-top: var(--space-sm);
+}

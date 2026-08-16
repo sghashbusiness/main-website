@@ -1,0 +1,103 @@
+.data-table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: none;
+  background: var(--color-canvas-elevated);
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.data-table-container:hover {
+  box-shadow: 0 0 16px rgba(18, 183, 106, 0.4); /* Primary green glow */
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.data-table__th {
+  padding: 16px 24px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-caps);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-canvas-subtle);
+  user-select: none;
+}
+
+.data-table__th--sortable {
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.data-table__th--sortable:hover {
+  background: var(--color-border-light);
+  color: var(--color-text-primary);
+}
+
+.data-table__th-content {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.data-table__sort-icon {
+  display: inline-flex;
+  color: var(--color-text-tertiary);
+}
+
+.data-table__th--sortable:hover .data-table__sort-icon {
+  color: var(--color-text-secondary);
+}
+
+.data-table__sort-placeholder {
+  width: 14px;
+}
+
+.data-table__td {
+  padding: 16px 24px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.data-table__tr:last-child .data-table__td {
+  border-bottom: none;
+}
+
+.data-table__tr--clickable {
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.data-table__tr--clickable:hover {
+  background: var(--color-border-light);
+}
+
+.data-table__align-right {
+  text-align: right;
+}
+
+.data-table__align-right .data-table__th-content {
+  flex-direction: row-reverse;
+}
+
+.data-table__align-center {
+  text-align: center;
+}
+
+.data-table__align-center .data-table__th-content {
+  justify-content: center;
+}
+
+.data-table__empty {
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}

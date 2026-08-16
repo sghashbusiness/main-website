@@ -1,0 +1,141 @@
+.metric-card {
+  padding: var(--space-xl);
+  border-radius: var(--radius-xl); /* Big bubbly corners */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  border: none; /* Clean look */
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(26, 123, 65, 0.15);
+}
+
+/* ── Dark Variant ──────────────────────────────────────────────────────*/
+.metric-card--dark {
+  background: rgba(15, 28, 20, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.metric-card--dark .metric-card__label {
+  color: var(--color-text-on-dark-muted);
+}
+
+.metric-card--dark .metric-card__value {
+  color: var(--color-text-on-dark);
+}
+
+.metric-card--dark .metric-card__icon {
+  color: var(--color-primary);
+}
+
+.metric-card--dark .metric-card__unit {
+  color: var(--color-text-on-dark-muted);
+}
+
+/* ── White Variant ─────────────────────────────────────────────────────*/
+.metric-card--white {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.metric-card--white:hover {
+  box-shadow: 0 12px 35px rgba(26, 123, 65, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.metric-card--white .metric-card__label {
+  color: var(--color-text-secondary);
+}
+
+.metric-card--white .metric-card__value {
+  color: var(--color-text-primary);
+}
+
+.metric-card--white .metric-card__icon {
+  color: var(--color-text-secondary);
+}
+
+/* ── Mint Variant ──────────────────────────────────────────────────────*/
+.metric-card--mint {
+  background: rgba(238, 247, 241, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(18, 183, 106, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(18, 183, 106, 0.2);
+}
+
+.metric-card--mint .metric-card__label {
+  color: var(--color-text-secondary);
+}
+
+.metric-card--mint .metric-card__value {
+  color: var(--color-card-dark); /* Massive dark numbers */
+}
+
+.metric-card--mint .metric-card__icon {
+  color: var(--color-primary);
+}
+
+/* ── Sub-elements ──────────────────────────────────────────────────────*/
+.metric-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metric-card__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.metric-card__value {
+  font-size: 42px; /* Huge value */
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  margin-top: var(--space-xs);
+}
+
+.metric-card__unit {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  margin-left: var(--space-xs);
+  opacity: 0.5;
+}
+
+.metric-card__trend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--space-xs);
+}
+
+.metric-card__trend--positive {
+  color: var(--color-primary);
+}
+
+.metric-card__trend--negative {
+  color: var(--color-danger);
+}
+
+.metric-card__trend--neutral {
+  color: var(--color-text-secondary);
+}
+
+.metric-card__trend-label {
+  font-weight: var(--font-weight-medium);
+  color: inherit;
+  opacity: 0.7;
+  font-size: var(--font-size-xs);
+}
