@@ -23,7 +23,7 @@ export default function StockIngestion() {
         Process incoming vendor shipments. Use Bulk Upload for large deliveries (CSV/Excel) or Manual Entry for individual units.
       </p>
 
-      <div style={{ display: 'flex', gap: 'var(--space-md)', paddingBottom: 'var(--space-lg)', borderBottom: '1px solid var(--color-border)' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-md)', paddingBottom: 'var(--space-lg)', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
         <PillButton variant="secondary" icon={Upload} onClick={() => setIsBulkOpen(true)}>
           Bulk Upload (CSV/Excel)
         </PillButton>

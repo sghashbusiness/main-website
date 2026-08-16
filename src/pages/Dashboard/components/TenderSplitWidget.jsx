@@ -40,7 +40,7 @@ export default function TenderSplitWidget() {
 
   if (loading) {
     return (
-      <div className="metric-card metric-card--mint flex-center" style={{ height: '100%' }}>
+      <div className="metric-card metric-card--dark flex-center" style={{ height: '100%' }}>
         <Spinner size={32} />
       </div>
     );
@@ -71,7 +71,7 @@ export default function TenderSplitWidget() {
       legend: {
         position: 'bottom',
         labels: {
-          color: '#374151',
+          color: '#a3b8aa',
           usePointStyle: true,
           padding: 20,
           font: {
@@ -90,7 +90,7 @@ export default function TenderSplitWidget() {
   };
 
   return (
-    <div className="metric-card metric-card--mint" style={{ height: '100%', minHeight: 300 }}>
+    <div className="metric-card metric-card--dark" style={{ height: '100%', minHeight: 300 }}>
       <div className="metric-card__header" style={{ marginBottom: 'var(--space-md)' }}>
         <span className="metric-card__label">Tender Split</span>
       </div>

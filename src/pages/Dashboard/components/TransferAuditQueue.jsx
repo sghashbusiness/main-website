@@ -68,12 +68,13 @@ export default function TransferAuditQueue() {
       label: 'Status',
       render: (val) => (
         <span style={{ 
-          fontSize: 'var(--font-size-2xs)',
-          padding: '2px 6px',
+          fontSize: '11px',
+          padding: '4px 8px',
           borderRadius: 'var(--radius-pill)',
-          background: 'var(--color-border-light)',
-          color: 'var(--color-text-secondary)',
-          fontWeight: 600
+          background: 'rgba(255, 255, 255, 0.1)',
+          color: '#a3b8aa',
+          fontWeight: 600,
+          whiteSpace: 'nowrap'
         }}>
           {TRANSFER_STATUS_LABELS[val]}
         </span>
@@ -88,7 +89,7 @@ export default function TransferAuditQueue() {
           return (
             <PillButton 
               size="sm" 
-              variant="secondary"
+              variant="primary"
               onClick={(e) => { e.stopPropagation(); handleForceApprove(row.id); }}
             >
               Force Approve

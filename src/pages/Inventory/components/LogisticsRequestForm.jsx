@@ -61,7 +61,7 @@ export default function LogisticsRequestForm() {
           value={targetBranch}
           onChange={(e) => setTargetBranch(e.target.value)}
           className="search-bar__input"
-          style={{ width: '100%', padding: 'var(--space-sm) var(--space-md)', background: 'var(--color-canvas)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)' }}
+          style={{ width: '100%', padding: 'var(--space-sm) var(--space-md)', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-md)', color: '#ffffff' }}
         >
           {Object.values(BRANCHES).filter(b => b !== selectedBranch).map(b => (
             <option key={b} value={b}>{BRANCH_LABELS[b]}</option>
@@ -69,10 +69,10 @@ export default function LogisticsRequestForm() {
         </select>
       </div>
 
-      <div style={{ background: 'var(--color-canvas)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
+      <div style={{ background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
-            <tr style={{ background: 'var(--color-canvas-subtle)', borderBottom: '1px solid var(--color-border)' }}>
+            <tr style={{ background: 'rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
               <th className="text-xs" style={{ padding: 'var(--space-md)' }}>SKU *</th>
               <th className="text-xs" style={{ padding: 'var(--space-md)' }}>Qty *</th>
               <th style={{ width: 60 }}></th>
@@ -80,7 +80,7 @@ export default function LogisticsRequestForm() {
           </thead>
           <tbody>
             {items.map((row) => (
-              <tr key={row.id} style={{ borderBottom: '1px solid var(--color-border-light)' }}>
+              <tr key={row.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                 <td style={{ padding: 'var(--space-sm) var(--space-md)' }}>
                   <InputField
                     value={row.sku}

@@ -15,27 +15,25 @@
 
 /* ── Dark Variant ──────────────────────────────────────────────────────*/
 .metric-card--dark {
-  background: rgba(15, 28, 20, 0.8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  background: #1e2a22;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .metric-card--dark .metric-card__label {
-  color: var(--color-text-on-dark-muted);
+  color: #a3b8aa;
 }
 
 .metric-card--dark .metric-card__value {
-  color: var(--color-text-on-dark);
+  color: #ffffff;
 }
 
 .metric-card--dark .metric-card__icon {
-  color: var(--color-primary);
+  color: #1bc162;
 }
 
 .metric-card--dark .metric-card__unit {
-  color: var(--color-text-on-dark-muted);
+  color: #a3b8aa;
 }
 
 /* ── White Variant ─────────────────────────────────────────────────────*/
@@ -138,4 +136,13 @@
   color: inherit;
   opacity: 0.7;
   font-size: var(--font-size-xs);
+}
+
+/* ── Dark Variant Trend Overrides ──────────────────────────────────────*/
+.metric-card--dark .metric-card__trend--positive {
+  color: #1bc162;
+}
+.metric-card--dark .metric-card__trend-label {
+  color: #0e9b48;
+  opacity: 1;
 }

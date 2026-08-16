@@ -39,7 +39,7 @@ export default function MultiBranchPerformanceChart() {
 
   if (loading) {
     return (
-      <div className="metric-card metric-card--white flex-center" style={{ height: 350 }}>
+      <div className="metric-card metric-card--dark flex-center" style={{ height: 350 }}>
         <Spinner size={32} />
       </div>
     );
@@ -84,15 +84,15 @@ export default function MultiBranchPerformanceChart() {
         ticks: {
           callback: (value) => `₹${(value / 100000).toFixed(1)}L`,
           font: { family: "'Inter', sans-serif", size: 12 },
-          color: '#6b7280'
+          color: '#a3b8aa'
         },
-        grid: { color: '#f3f4f6' },
+        grid: { color: 'rgba(255, 255, 255, 0.05)' },
         border: { display: false }
       },
       x: {
         ticks: {
           font: { family: "'Inter', sans-serif", size: 12 },
-          color: '#374151'
+          color: '#a3b8aa'
         },
         grid: { display: false },
         border: { display: false }
@@ -101,7 +101,7 @@ export default function MultiBranchPerformanceChart() {
   };
 
   return (
-    <div className="metric-card metric-card--white" style={{ height: 350 }}>
+    <div className="metric-card metric-card--dark" style={{ height: 350 }}>
       <div style={{ flex: 1, position: 'relative' }}>
         <Line data={data} options={options} />
       </div>

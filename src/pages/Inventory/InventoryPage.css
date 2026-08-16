@@ -8,10 +8,18 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: var(--space-lg);
   flex-wrap: wrap;
   gap: var(--space-md);
+}
+
+.inventory-page .text-page-title {
+  color: #ffffff;
+}
+
+.inventory-page .text-on-canvas-muted {
+  color: #a3b8aa !important;
 }
 
 .inventory-page__content {
@@ -22,21 +30,39 @@
 
 /* ── Common Panel Styling ──────────────────────────────────────────────*/
 .inventory-panel {
-  background: var(--color-canvas-elevated);
-  border: none;
+  background: #1e2a22;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-xl);
   padding: var(--space-xl);
-  box-shadow: var(--shadow-elevated);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
+  color: #ffffff;
 }
 
 .inventory-panel__title {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
+  color: #ffffff;
   display: flex;
   align-items: center;
   gap: var(--space-sm);
+}
+
+/* ── Dark DataTables in Inventory Page ──────────────────────────────────*/
+.inventory-page .data-table-container {
+  background: transparent;
+}
+.inventory-page .data-table__th {
+  background: rgba(255, 255, 255, 0.03);
+  color: #a3b8aa;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.inventory-page .data-table__td {
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.inventory-page .data-table__tr--clickable:hover {
+  background: rgba(255, 255, 255, 0.05);
 }

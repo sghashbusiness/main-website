@@ -74,20 +74,20 @@ export default function SalesAnalytics() {
         icon={IndianRupee}
       />
       <MetricCard
-        variant="white"
+        variant="dark"
         label="Bill Volume"
         value={metrics.billVolume.toLocaleString()}
         unit="bills"
         icon={FileText}
       />
       <MetricCard
-        variant="white"
+        variant="dark"
         label="Average Order Value"
         value={`₹${metrics.avgOrderValue.toLocaleString('en-IN')}`}
         icon={ShoppingBag}
       />
       <MetricCard
-        variant="mint"
+        variant="dark"
         label="Total Discounts"
         value={`₹${metrics.totalDiscounts.toLocaleString('en-IN')}`}
         icon={Tag}

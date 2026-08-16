@@ -20,8 +20,8 @@ export default function BillSummaryPanel({ summary }) {
   );
 
   return (
-    <div className="pos-panel" style={{ background: 'var(--color-canvas-subtle)' }}>
-      <div className="pos-panel__title" style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: 'var(--space-sm)' }}>
+    <div className="pos-panel">
+      <div className="pos-panel__title" style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: 'var(--space-sm)' }}>
         Bill Summary ({summary.itemCount} Items)
       </div>
       

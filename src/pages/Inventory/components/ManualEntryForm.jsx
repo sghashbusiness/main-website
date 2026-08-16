@@ -60,10 +60,10 @@ export default function ManualEntryForm() {
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
-      <div style={{ background: 'var(--color-canvas)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
+      <div style={{ background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
-            <tr style={{ background: 'var(--color-canvas-subtle)', borderBottom: '1px solid var(--color-border)' }}>
+            <tr style={{ background: 'rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
               <th className="text-xs" style={{ padding: 'var(--space-md)' }}>SKU *</th>
               <th className="text-xs" style={{ padding: 'var(--space-md)' }}>15-Digit IMEI *</th>
               <th style={{ width: 60 }}></th>
@@ -71,7 +71,7 @@ export default function ManualEntryForm() {
           </thead>
           <tbody>
             {rows.map((row) => (
-              <tr key={row.id} style={{ borderBottom: '1px solid var(--color-border-light)' }}>
+              <tr key={row.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                 <td style={{ padding: 'var(--space-sm) var(--space-md)' }}>
                   <InputField
                     value={row.sku}

@@ -19,14 +19,14 @@ export default function StoreMetaCard({ branch }) {
   const branchMeta = meta[branch] || meta.kochi;
 
   return (
-    <div className="pos-panel" style={{ background: 'var(--color-primary-subtle)', borderColor: 'var(--color-primary-transparent)', padding: 'var(--space-md)' }}>
+    <div className="pos-panel" style={{ background: 'rgba(27, 193, 98, 0.05)', borderColor: 'rgba(27, 193, 98, 0.2)', padding: 'var(--space-md)' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
-        <div style={{ width: 48, height: 48, background: 'var(--color-primary)', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+        <div style={{ width: 48, height: 48, background: '#1bc162', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
           <Store size={24} />
         </div>
         <div>
-          <h2 className="text-md font-semibold" style={{ color: 'var(--color-primary-dark)' }}>SGHASH Retail — {branchName}</h2>
-          <div className="text-small text-on-canvas-muted" style={{ display: 'flex', gap: 'var(--space-md)' }}>
+          <h2 className="text-md font-semibold" style={{ color: '#ffffff' }}>SGHASH Retail — {branchName}</h2>
+          <div className="text-small" style={{ display: 'flex', gap: 'var(--space-md)', color: '#a3b8aa', marginTop: 4 }}>
             <span>{branchMeta.address}</span>
             <span>•</span>
             <span style={{ fontWeight: 600 }}>GSTIN: {branchMeta.gstin}</span>

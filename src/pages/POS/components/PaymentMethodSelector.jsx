@@ -37,7 +37,7 @@ export default function PaymentMethodSelector({ summary, payment, setPayment }) 
       <SegmentedToggle options={options} value={payment.method} onChange={handleMethodChange} />
 
       {payment.method === 'cash' && (
-        <div style={{ marginTop: 'var(--space-md)', padding: 'var(--space-md)', background: 'var(--color-canvas)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
+        <div style={{ marginTop: 'var(--space-md)', padding: 'var(--space-md)', background: 'rgba(0,0,0,0.2)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255,255,255,0.1)' }}>
           <InputField
             label="Cash Received (₹)"
             type="number"
@@ -53,7 +53,7 @@ export default function PaymentMethodSelector({ summary, payment, setPayment }) 
       )}
 
       {payment.method === 'split' && (
-        <div style={{ marginTop: 'var(--space-md)', display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)', padding: 'var(--space-md)', background: 'var(--color-canvas)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
+        <div style={{ marginTop: 'var(--space-md)', display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)', padding: 'var(--space-md)', background: 'rgba(0,0,0,0.2)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255,255,255,0.1)' }}>
           <InputField
             label="Cash Amount (₹)"
             type="number"
