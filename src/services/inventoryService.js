@@ -11,13 +11,13 @@ import {
   findBySKU,
   isIMEIDuplicate,
   getTotalStock,
-} from '../mock-data/inventory';
+} from '../mock-data/db';
 import {
   transfers,
   getActiveTransfers,
   getPendingShipments,
   TRANSFER_STATUSES,
-} from '../mock-data/transfers';
+} from '../mock-data/db';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

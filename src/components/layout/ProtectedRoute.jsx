@@ -8,7 +8,7 @@
 
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { ROLE_PERMISSIONS, ROLE_DEFAULT_ROUTES } from '../../mock-data/users';
+import { ROLE_PERMISSIONS, ROLE_DEFAULT_ROUTES } from '../../mock-data/db';
 
 export default function ProtectedRoute({ children, allowedRoles }) {
   const { isAuthenticated, isLoading, role } = useAuth();

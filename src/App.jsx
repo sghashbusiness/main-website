@@ -10,7 +10,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 import AppShell from './components/layout/AppShell';
-import { ROLES, ROLE_DEFAULT_ROUTES } from './mock-data/users';
+import { ROLES, ROLE_DEFAULT_ROUTES } from './mock-data/db';
 
 import LoginPage from './pages/Login/LoginPage';
 

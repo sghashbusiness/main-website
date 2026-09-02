@@ -11,7 +11,7 @@
 
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { ROLES, ROLE_LABELS } from '../../mock-data/users';
+import { ROLES, ROLE_LABELS } from '../../mock-data/db';
 import {
   LayoutDashboard,
   Package,

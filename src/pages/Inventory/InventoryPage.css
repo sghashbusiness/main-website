@@ -14,9 +14,11 @@
   gap: var(--space-md);
 }
 
+.inventory-page .text-page-title {
   color: var(--color-panel-text);
 }
 
+.inventory-page .text-on-canvas-muted {
   color: var(--color-muted-text) !important;
 }
 

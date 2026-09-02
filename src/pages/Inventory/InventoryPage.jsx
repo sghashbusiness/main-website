@@ -11,7 +11,7 @@ import SegmentedToggle from '../../components/ui/SegmentedToggle';
 import GlobalSearch from './components/GlobalSearch';
 import StockIngestion from './components/StockIngestion';
 import InterStoreLogistics from './components/InterStoreLogistics';
-import { BRANCH_LABELS } from '../../mock-data/inventory';
+import { BRANCH_LABELS } from '../../mock-data/db';
 import './InventoryPage.css';
 
 const TABS = [

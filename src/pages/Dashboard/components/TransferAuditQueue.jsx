@@ -9,8 +9,8 @@ import { useToast } from '../../../hooks/useToast';
 import DataTable from '../../../components/ui/DataTable';
 import Spinner from '../../../components/ui/Spinner';
 import PillButton from '../../../components/ui/PillButton';
-import { BRANCH_LABELS } from '../../../mock-data/inventory';
-import { TRANSFER_STATUS_LABELS, TRANSFER_STATUSES } from '../../../mock-data/transfers';
+import { BRANCH_LABELS } from '../../../mock-data/db';
+import { TRANSFER_STATUS_LABELS, TRANSFER_STATUSES } from '../../../mock-data/db';
 import { format } from 'date-fns';
 
 export default function TransferAuditQueue() {

@@ -6,7 +6,7 @@
 
 import { useBranch } from '../../hooks/useBranch';
 import { Store } from 'lucide-react';
-import { BRANCHES, BRANCH_LABELS } from '../../mock-data/inventory';
+import { BRANCHES, BRANCH_LABELS } from '../../mock-data/db';
 import './BranchFilterDropdown.css';
 
 import CustomDropdown from './CustomDropdown';

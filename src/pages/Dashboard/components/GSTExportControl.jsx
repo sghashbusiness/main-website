@@ -10,7 +10,7 @@ import { exportGSTR1 } from '../../../services/analyticsService';
 import PillButton from '../../../components/ui/PillButton';
 import SegmentedToggle from '../../../components/ui/SegmentedToggle';
 import { DownloadCloud, CheckCircle } from 'lucide-react';
-import { BRANCH_LABELS } from '../../../mock-data/inventory';
+import { BRANCH_LABELS } from '../../../mock-data/db';
 
 export default function GSTExportControl() {
   const { selectedBranch } = useBranch();

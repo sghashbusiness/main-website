@@ -118,9 +118,11 @@
 }
 
 /* ── Dark Mode Overrides for Dashboard Tables & Text ───────────────────*/
+.dashboard-page .text-section-header {
   color: var(--color-panel-text);
 }
 
+.dashboard-page .text-on-canvas-muted {
   color: var(--color-muted-text) !important;
 }
 
@@ -138,6 +140,9 @@
   border-bottom: 1px solid var(--color-divider);
 }
 
+.dashboard__inventory-area .data-table__td,
+.dashboard__transfers-area .data-table__td,
+.dashboard__staff-area .data-table__td {
   color: var(--color-panel-text);
   border-bottom: 1px solid var(--color-divider-subtle);
 }
@@ -154,12 +159,15 @@
   border: 1px solid var(--color-input-border);
 }
 
+.dashboard-page .seg-toggle__item {
   color: var(--color-muted-text);
 }
 
+.dashboard-page .seg-toggle__item:hover:not(.seg-toggle__item--active) {
   color: var(--color-panel-text);
 }
 
+.dashboard-page .seg-toggle__item--active {
   background: var(--color-primary);
   color: var(--color-body-bg);
 }
@@ -169,9 +177,11 @@
   border: 1px solid var(--color-input-border);
 }
 
+.dashboard-page .branch-filter__select {
   color: var(--color-muted-text);
 }
 
+.dashboard-page .branch-filter__icon {
   color: var(--color-primary);
 }
 

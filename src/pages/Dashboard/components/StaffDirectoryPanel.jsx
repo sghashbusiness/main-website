@@ -8,7 +8,7 @@ import { getStaffDirectory } from '../../../services/staffService';
 import DataTable from '../../../components/ui/DataTable';
 import Spinner from '../../../components/ui/Spinner';
 import CredentialManagerModal from './CredentialManagerModal';
-import { BRANCH_LABELS } from '../../../mock-data/inventory';
+import { BRANCH_LABELS } from '../../../mock-data/db';
 
 export default function StaffDirectoryPanel() {
   const [staffList, setStaffList] = useState([]);

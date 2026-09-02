@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Bell, Sun, Moon } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { ROLE_LABELS } from '../../mock-data/users';
+import { ROLE_LABELS } from '../../mock-data/db';
 import Modal from '../ui/Modal';
 import InputField from '../ui/InputField';
 import PillButton from '../ui/PillButton';

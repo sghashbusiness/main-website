@@ -5,7 +5,7 @@
  * All functions are async for backend-ready architecture.
  */
 
-import { findByIMEI, GST_RATES } from '../mock-data/inventory';
+import { findByIMEI, GST_RATES } from '../mock-data/db';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

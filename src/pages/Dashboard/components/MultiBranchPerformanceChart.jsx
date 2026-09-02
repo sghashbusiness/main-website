@@ -10,7 +10,7 @@ import { getBranchComparison } from '../../../services/analyticsService';
 import Spinner from '../../../components/ui/Spinner';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { BRANCH_LABELS } from '../../../mock-data/inventory';
+import { BRANCH_LABELS } from '../../../mock-data/db';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 

@@ -5,7 +5,7 @@
  * All functions are async for backend-ready architecture.
  */
 
-import { staff, getStaffByBranch, getStaffByRole, getStaffStatusCounts, STAFF_STATUSES } from '../mock-data/staff';
+import { staff, getStaffByBranch, getStaffByRole, getStaffStatusCounts, STAFF_STATUSES } from '../mock-data/db';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

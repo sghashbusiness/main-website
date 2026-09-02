@@ -10,7 +10,7 @@ import DataTable from '../../../components/ui/DataTable';
 import Spinner from '../../../components/ui/Spinner';
 import PillButton from '../../../components/ui/PillButton';
 import Modal from '../../../components/ui/Modal';
-import { BRANCH_LABELS } from '../../../mock-data/inventory';
+import { BRANCH_LABELS } from '../../../mock-data/db';
 import { format } from 'date-fns';
 import { CheckCircle } from 'lucide-react';
 

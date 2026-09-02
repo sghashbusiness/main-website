@@ -10,7 +10,7 @@ import {
   getMultiBranchComparison,
   getConsolidatedMetrics,
   recentTransactions,
-} from '../mock-data/sales';
+} from '../mock-data/db';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

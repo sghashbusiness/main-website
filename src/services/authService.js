@@ -6,7 +6,7 @@
  * when connecting to a backend.
  */
 
-import { findUserByIdentifier } from '../mock-data/users';
+import { findUserByIdentifier } from '../mock-data/db';
 
 /** Simulated network delay */
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

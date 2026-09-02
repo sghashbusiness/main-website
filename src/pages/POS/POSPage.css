@@ -60,5 +60,6 @@
   gap: var(--space-lg);
 }
 
+.pos-page .text-page-title {
   color: var(--color-panel-text);
 }

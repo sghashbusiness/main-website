@@ -8,7 +8,7 @@ import { useToast } from '../../../hooks/useToast';
 import { sendStock } from '../../../services/inventoryService';
 import InputField from '../../../components/ui/InputField';
 import PillButton from '../../../components/ui/PillButton';
-import { BRANCHES, BRANCH_LABELS } from '../../../mock-data/inventory';
+import { BRANCHES, BRANCH_LABELS } from '../../../mock-data/db';
 import { Truck, Plus, Trash2 } from 'lucide-react';
 import CustomDropdown from '../../../components/ui/CustomDropdown';
 
