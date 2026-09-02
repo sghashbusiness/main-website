@@ -21,9 +21,10 @@ export default function BillingItemsTable({ items, onRemove, onUpdateDiscount })
           <tr style={{ background: 'var(--color-surface-hover)', borderBottom: '1px solid var(--color-divider)' }}>
             <th className="text-xs" style={{ padding: 'var(--space-sm) var(--space-md)', width: 40 }}>#</th>
             <th className="text-xs" style={{ padding: 'var(--space-sm) var(--space-md)' }}>Description & IMEI</th>
+            <th className="text-xs" style={{ padding: 'var(--space-sm) var(--space-md)', width: 60, textAlign: 'center' }}>Qty</th>
             <th className="text-xs" style={{ padding: 'var(--space-sm) var(--space-md)', width: 80 }}>HSN</th>
             <th className="text-xs" style={{ padding: 'var(--space-sm) var(--space-md)', width: 100, textAlign: 'right' }}>Unit Rate</th>
-            <th className="text-xs" style={{ padding: 'var(--space-sm) var(--space-md)', width: 120 }}>Disc (₹)</th>
+            <th className="text-xs" style={{ padding: 'var(--space-sm) var(--space-md)', width: 100 }}>Disc (%)</th>
             <th className="text-xs" style={{ padding: 'var(--space-sm) var(--space-md)', width: 120, textAlign: 'right' }}>CGST / SGST</th>
             <th className="text-xs" style={{ padding: 'var(--space-sm) var(--space-md)', width: 120, textAlign: 'right' }}>Net Total</th>
             <th style={{ width: 50 }}></th>
@@ -37,7 +38,15 @@ export default function BillingItemsTable({ items, onRemove, onUpdateDiscount })
               </td>
               <td style={{ padding: 'var(--space-sm) var(--space-md)' }}>
                 <div style={{ fontWeight: 600 }}>{item.name}</div>
-                <div className="text-xs text-on-canvas-muted">{item.sku} • {item.imei}</div>
+                <div className="text-xs text-on-canvas-muted">
+                  {item.sku} 
+                  {item.imeis && item.imeis.length > 0 && (
+                    <span> • IMEIs: {item.imeis.join(', ')}</span>
+                  )}
+                </div>
+              </td>
+              <td style={{ padding: 'var(--space-sm) var(--space-md)', textAlign: 'center', fontWeight: 600 }}>
+                {item.quantity}
               </td>
               <td style={{ padding: 'var(--space-sm) var(--space-md)', fontSize: 'var(--font-size-sm)' }}>
                 {item.hsnCode}
@@ -46,13 +55,28 @@ export default function BillingItemsTable({ items, onRemove, onUpdateDiscount })
                 ₹{item.unitRate.toLocaleString('en-IN')}
               </td>
               <td style={{ padding: 'var(--space-sm) var(--space-md)' }}>
-                <InputField
-                  type="number"
-                  value={item.discount === 0 ? '' : item.discount}
-                  onChange={(e) => onUpdateDiscount(item.id, parseFloat(e.target.value) || 0)}
-                  placeholder="0"
-                  style={{ margin: 0, textAlign: 'right' }}
-                />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', justifyContent: 'flex-end' }}>
+                  <InputField
+                    type="number"
+                    value={item.discount === 0 ? '' : item.discount}
+                    onChange={(e) => {
+                      let val = parseFloat(e.target.value) || 0;
+                      if (val > 100) val = 100;
+                      if (val < 0) val = 0;
+                      onUpdateDiscount(item.id, val);
+                    }}
+                    placeholder="0"
+                    style={{ margin: 0, textAlign: 'right', width: '60px' }}
+                    min="0"
+                    max="100"
+                  />
+                  <span className="text-xs text-on-canvas-muted">%</span>
+                </div>
+                {item.discountAmount > 0 && (
+                  <div className="text-xs text-on-canvas-muted" style={{ textAlign: 'right', marginTop: '2px' }}>
+                    -₹{item.discountAmount.toLocaleString('en-IN')}
+                  </div>
+                )}
               </td>
               <td style={{ padding: 'var(--space-sm) var(--space-md)', textAlign: 'right', fontSize: 'var(--font-size-xs)' }}>
                 <div>₹{item.cgstAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ({item.cgstRate}%)</div>

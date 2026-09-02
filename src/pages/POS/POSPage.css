@@ -63,3 +63,33 @@
 .pos-page .text-page-title {
   color: var(--color-panel-text);
 }
+
+/* Print Styles for Invoice Modal */
+@media print {
+  /* Hide EVERYTHING by default */
+  body * {
+    visibility: hidden;
+  }
+  
+  /* Show only the printable invoice area and its children */
+  .printable-invoice, .printable-invoice * {
+    visibility: visible;
+  }
+  
+  /* Position the invoice at the top left of the printed page */
+  .printable-invoice {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 15mm !important;
+    background: transparent !important;
+    color: #000 !important;
+  }
+
+  /* Hide the actions/buttons */
+  .no-print {
+    display: none !important;
+  }
+}

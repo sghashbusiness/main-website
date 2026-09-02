@@ -5,7 +5,7 @@
  * All functions are async for backend-ready architecture.
  */
 
-import { findByIMEI, GST_RATES } from '../mock-data/db';
+import { findByIMEI, findBySKU, GST_RATES } from '../mock-data/db';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -18,39 +18,31 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export async function resolveIMEI(imei, currentBranch) {
   await delay(150 + Math.random() * 100);
 
-  if (!/^\d{15}$/.test(imei)) {
-    return {
-      success: false,
-      data: null,
-      error: 'Invalid IMEI format. Must be exactly 15 digits.',
-    };
-  }
+  let product, imeiRecord;
+  const isImeiFormat = /^\d{15}$/.test(imei);
 
-  const result = findByIMEI(imei);
-  if (!result) {
-    return {
-      success: false,
-      data: null,
-      error: `IMEI ${imei} not found in inventory.`,
-    };
-  }
+  if (isImeiFormat) {
+    const result = findByIMEI(imei);
+    if (!result) {
+      return { success: false, data: null, error: `IMEI ${imei} not found in inventory.` };
+    }
+    product = result.product;
+    imeiRecord = result.imeiRecord;
 
-  const { product, imeiRecord } = result;
-
-  if (imeiRecord.status === 'sold') {
-    return {
-      success: false,
-      data: null,
-      error: `IMEI ${imei} has already been sold.`,
-    };
-  }
-
-  if (imeiRecord.branch !== currentBranch) {
-    return {
-      success: false,
-      data: null,
-      error: `IMEI ${imei} is at ${imeiRecord.branch} branch, not ${currentBranch}.`,
-    };
+    if (imeiRecord.status === 'sold') {
+      return { success: false, data: null, error: `IMEI ${imei} has already been sold.` };
+    }
+    if (imeiRecord.branch !== currentBranch) {
+      return { success: false, data: null, error: `IMEI ${imei} is at ${imeiRecord.branch} branch, not ${currentBranch}.` };
+    }
+  } else {
+    // Treat as SKU (e.g. accessories without IMEI, or user clicking a suggestion)
+    product = findBySKU(imei);
+    if (!product) {
+      return { success: false, data: null, error: `SKU/IMEI ${imei} not found.` };
+    }
+    // Mock an IMEI record for the cart
+    imeiRecord = { imei: `SKU-${Date.now().toString().slice(-6)}`, branch: currentBranch, status: 'available' };
   }
 
   const gstRate = GST_RATES[product.gstKey];
@@ -83,15 +75,26 @@ export async function resolveIMEI(imei, currentBranch) {
  * and the Net Total per line."
  */
 export function calculateLineItem(item) {
-  const discountedPrice = item.unitRate - (item.discount || 0);
-  const taxableValue = +(discountedPrice / (1 + item.gstRate / 100)).toFixed(2);
-  const cgstAmount = +(taxableValue * item.cgstRate / 100).toFixed(2);
-  const sgstAmount = +(taxableValue * item.sgstRate / 100).toFixed(2);
+  const quantity = item.quantity || 1;
+  const discountPercent = item.discount || 0; // 0 to 100
+  const discountAmountPerUnit = item.unitRate * (discountPercent / 100);
+  const discountedPricePerUnit = item.unitRate - discountAmountPerUnit;
+
+  const taxableValuePerUnit = discountedPricePerUnit / (1 + item.gstRate / 100);
+  const cgstAmountPerUnit = taxableValuePerUnit * item.cgstRate / 100;
+  const sgstAmountPerUnit = taxableValuePerUnit * item.sgstRate / 100;
+
+  const taxableValue = +(taxableValuePerUnit * quantity).toFixed(2);
+  const cgstAmount = +(cgstAmountPerUnit * quantity).toFixed(2);
+  const sgstAmount = +(sgstAmountPerUnit * quantity).toFixed(2);
+  const totalDiscount = +(discountAmountPerUnit * quantity).toFixed(2);
   const netTotal = +(taxableValue + cgstAmount + sgstAmount).toFixed(2);
 
   return {
     ...item,
-    discountedPrice,
+    quantity,
+    discountAmount: totalDiscount,
+    discountedPrice: discountedPricePerUnit,
     taxableValue,
     cgstAmount,
     sgstAmount,
@@ -108,14 +111,15 @@ export function calculateLineItem(item) {
 export function calculateBillSummary(cartItems) {
   const lineItems = cartItems.map(calculateLineItem);
 
-  const grossAmount = lineItems.reduce((sum, item) => sum + item.unitRate, 0);
-  const totalDiscount = lineItems.reduce((sum, item) => sum + (item.discount || 0), 0);
+  const grossAmount = lineItems.reduce((sum, item) => sum + (item.unitRate * item.quantity), 0);
+  const totalDiscount = lineItems.reduce((sum, item) => sum + item.discountAmount, 0);
   const taxableValue = lineItems.reduce((sum, item) => sum + item.taxableValue, 0);
   const totalCGST = lineItems.reduce((sum, item) => sum + item.cgstAmount, 0);
   const totalSGST = lineItems.reduce((sum, item) => sum + item.sgstAmount, 0);
   const subTotal = +(taxableValue + totalCGST + totalSGST).toFixed(2);
   const roundingAdjustment = +(Math.round(subTotal) - subTotal).toFixed(2);
   const grandTotal = Math.round(subTotal);
+  const totalItemsCount = lineItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return {
     lineItems,
@@ -127,7 +131,7 @@ export function calculateBillSummary(cartItems) {
     subTotal,
     roundingAdjustment,
     grandTotal,
-    itemCount: lineItems.length,
+    itemCount: totalItemsCount,
   };
 }
 

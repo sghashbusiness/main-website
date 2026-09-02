@@ -50,7 +50,7 @@
 }
 
 .pill-btn--primary:hover:not(:disabled) {
-  background: var(--color-sidebar-bg);
+  filter: brightness(1.1);
   box-shadow: var(--shadow-elevated);
 }
 

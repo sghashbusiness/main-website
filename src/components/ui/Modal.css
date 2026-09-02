@@ -14,9 +14,21 @@
   display: flex;
 }
 
+@keyframes backdrop-fade-and-blur {
+  from {
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+  }
+  to {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+  }
+}
+
 .modal::backdrop {
-  background: rgba(0, 0, 0, 0);
-  animation: backdrop-fade-in var(--transition-slow) ease forwards;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  animation: backdrop-fade-and-blur var(--transition-slow) ease forwards;
 }
 
 .modal__container {

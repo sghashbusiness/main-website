@@ -14,6 +14,7 @@ import IMEIScannerBar from './components/IMEIScannerBar';
 import BillingItemsTable from './components/BillingItemsTable';
 import BillSummaryPanel from './components/BillSummaryPanel';
 import PaymentMethodSelector from './components/PaymentMethodSelector';
+import InvoicePreviewModal from './components/InvoicePreviewModal';
 import PillButton from '../../components/ui/PillButton';
 import { ShoppingCart, CheckCircle } from 'lucide-react';
 import './POSPage.css';
@@ -27,13 +28,16 @@ export default function POSPage() {
   const [cartItems, setCartItems] = useState([]);
   const [payment, setPayment] = useState({ method: 'cash', cashReceived: '', splitAmounts: { cash: 0, upi: 0, card: 0 } });
   const [loading, setLoading] = useState(false);
+  const [completedSaleData, setCompletedSaleData] = useState(null);
 
   const billSummary = calculateBillSummary(cartItems);
 
   const handleAddToCart = async (imei) => {
-    if (cartItems.some(i => i.imei === imei)) {
-      toastError(`IMEI ${imei} is already in the cart.`);
-      return;
+    if (/^\d{15}$/.test(imei)) {
+      if (cartItems.some(i => i.imeis && i.imeis.includes(imei))) {
+        toastError(`IMEI ${imei} is already in the cart.`);
+        return;
+      }
     }
 
     setLoading(true);
@@ -41,7 +45,31 @@ export default function POSPage() {
     setLoading(false);
 
     if (res.success) {
-      setCartItems([{ ...res.data, id: Date.now(), discount: 0 }, ...cartItems]);
+      const newItem = res.data;
+      const existingItemIndex = cartItems.findIndex(i => i.sku === newItem.sku);
+      
+      if (existingItemIndex >= 0) {
+        const updatedCart = [...cartItems];
+        const existing = updatedCart[existingItemIndex];
+        const newImeis = [...(existing.imeis || [])];
+        if (!newItem.imei.startsWith('SKU-')) {
+          newImeis.push(newItem.imei);
+        }
+        updatedCart[existingItemIndex] = {
+          ...existing,
+          quantity: (existing.quantity || 1) + 1,
+          imeis: newImeis
+        };
+        setCartItems(updatedCart);
+      } else {
+        setCartItems([{ 
+          ...newItem, 
+          id: Date.now(), 
+          discount: 0,
+          quantity: 1,
+          imeis: newItem.imei.startsWith('SKU-') ? [] : [newItem.imei]
+        }, ...cartItems]);
+      }
     } else {
       toastError(res.error);
     }
@@ -89,9 +117,13 @@ export default function POSPage() {
       if (deliveryMethod === 'whatsapp') {
         const whRes = await fireInvoiceWebhook(res.data.invoiceNumber, customerInfo.mobile);
         if (whRes.success) toastSuccess(whRes.data.message);
-      } else {
-        toastSuccess('Thermal print initiated.');
       }
+
+      setCompletedSaleData({
+        ...saleData,
+        invoiceNumber: res.data.invoiceNumber,
+        date: new Date().toISOString()
+      });
 
       // Reset
       setCartItems([]);
@@ -152,6 +184,13 @@ export default function POSPage() {
           </div>
         </div>
       </div>
+      
+      {completedSaleData && (
+        <InvoicePreviewModal 
+          saleData={completedSaleData} 
+          onClose={() => setCompletedSaleData(null)} 
+        />
+      )}
     </div>
   );
 }

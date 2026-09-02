@@ -3,8 +3,8 @@
  * Search inventory by IMEI or SKU.
  */
 
-import { useState } from 'react';
-import { searchInventory } from '../../../services/inventoryService';
+import { useState, useEffect, useRef } from 'react';
+import { searchInventory, getInventorySuggestions } from '../../../services/inventoryService';
 import SearchBar from '../../../components/ui/SearchBar';
 import DataTable from '../../../components/ui/DataTable';
 import Spinner from '../../../components/ui/Spinner';
@@ -15,19 +15,57 @@ export default function GlobalSearch() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const wrapperRef = useRef(null);
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (!query.trim()) return;
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (query.trim().length < 2) {
+        setSuggestions([]);
+        return;
+      }
+      const res = await getInventorySuggestions(query);
+      if (res.success) {
+        setSuggestions(res.data);
+      }
+    };
+    
+    // Simple debounce
+    const timer = setTimeout(fetchSuggestions, 300);
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  const handleSearch = async (e, forcedQuery = null) => {
+    if (e) e.preventDefault();
+    const searchQuery = forcedQuery !== null ? forcedQuery : query;
+    if (!searchQuery.trim()) return;
+
+    setShowSuggestions(false);
     setLoading(true);
     setHasSearched(true);
-    const res = await searchInventory(query);
+    const res = await searchInventory(searchQuery);
     setLoading(false);
 
     if (res.success) {
       setResults(res.data);
     }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setQuery(suggestion.sku);
+    handleSearch(null, suggestion.sku);
   };
 
   const columns = [
@@ -64,13 +102,54 @@ export default function GlobalSearch() {
       </div>
 
       <form onSubmit={handleSearch} style={{ display: 'flex', gap: 'var(--space-md)' }}>
-        <div style={{ flex: 1, maxWidth: 500 }}>
+        <div ref={wrapperRef} style={{ flex: 1, maxWidth: 500, position: 'relative', zIndex: 50 }}>
           <SearchBar
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setShowSuggestions(true);
+            }}
+            onFocus={() => setShowSuggestions(true)}
             placeholder="Scan or enter 15-digit IMEI, or type SKU..."
             shortcutHint=""
           />
+          {showSuggestions && suggestions.length > 0 && (
+            <ul style={{
+              position: 'absolute',
+              top: '100%',
+              left: 0,
+              right: 0,
+              background: 'var(--color-body-bg)', // Opaque to prevent text bleeding
+              border: '1px solid var(--color-input-border)',
+              borderRadius: 'var(--radius-md)',
+              marginTop: '4px',
+              padding: 0,
+              listStyle: 'none',
+              zIndex: 50,
+              maxHeight: '300px',
+              overflowY: 'auto',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+            }}>
+              {suggestions.map((item) => (
+                <li
+                  key={item.sku}
+                  onClick={() => handleSuggestionClick(item)}
+                  style={{
+                    padding: 'var(--space-sm) var(--space-md)',
+                    cursor: 'pointer',
+                    borderBottom: '1px solid var(--color-border-subtle)',
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.background = 'var(--color-bg-hover)'}
+                  onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  <span style={{ fontWeight: 500, color: 'var(--color-text-main)' }}>{item.name}</span>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--color-muted-text)' }}>SKU: {item.sku} • {item.brand}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <button type="submit" className="pill-btn pill-btn--primary pill-btn--md" disabled={loading || !query.trim()}>
           {loading ? <Spinner size={16} /> : 'Search'}

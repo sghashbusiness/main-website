@@ -65,6 +65,37 @@ export async function searchInventory(query) {
 }
 
 /**
+ * Rapid suggestion lookup for autocomplete.
+ * Returns only SKU and Name to keep the payload lightweight.
+ */
+export async function getInventorySuggestions(query) {
+  // Shorter latency for typeahead
+  await delay(100); 
+
+  const trimmed = query.trim().toLowerCase();
+  if (!trimmed || trimmed.length < 2) {
+    return { success: true, data: [], error: null };
+  }
+
+  // Filter and map to lightweight objects
+  const suggestions = inventory
+    .filter(
+      (p) =>
+        p.sku.toLowerCase().includes(trimmed) ||
+        p.name.toLowerCase().includes(trimmed) ||
+        p.brand.toLowerCase().includes(trimmed)
+    )
+    .map((p) => ({
+      sku: p.sku,
+      name: p.name,
+      brand: p.brand
+    }))
+    .slice(0, 5); // Limit to top 5 matches
+
+  return { success: true, data: suggestions, error: null };
+}
+
+/**
  * Get full inventory listing for a branch or all branches.
  * Architecture Spec §3.3: "<ConsolidatedInventoryGrid>: A master data table
  * mapping every SKU to its total company stock, with adjacent columns detailing
