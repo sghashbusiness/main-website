@@ -10,6 +10,7 @@ import InputField from '../../../components/ui/InputField';
 import PillButton from '../../../components/ui/PillButton';
 import { BRANCHES, BRANCH_LABELS } from '../../../mock-data/inventory';
 import { Send, Plus, Trash2 } from 'lucide-react';
+import CustomDropdown from '../../../components/ui/CustomDropdown';
 
 export default function LogisticsRequestForm() {
   const { selectedBranch } = useBranch();
@@ -57,16 +58,15 @@ export default function LogisticsRequestForm() {
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
       <div>
         <label className="text-small" style={{ fontWeight: 500, marginBottom: 'var(--space-xs)', display: 'block' }}>Request From Branch</label>
-        <select
+        <CustomDropdown
+          options={Object.values(BRANCHES).filter(b => b !== selectedBranch).map(b => ({
+            value: b,
+            label: BRANCH_LABELS[b]
+          }))}
           value={targetBranch}
-          onChange={(e) => setTargetBranch(e.target.value)}
-          className="search-bar__input"
-          style={{ width: '100%', padding: 'var(--space-sm) var(--space-md)', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-md)', color: '#ffffff' }}
-        >
-          {Object.values(BRANCHES).filter(b => b !== selectedBranch).map(b => (
-            <option key={b} value={b}>{BRANCH_LABELS[b]}</option>
-          ))}
-        </select>
+          onChange={setTargetBranch}
+          placeholder="Select origin branch..."
+        />
       </div>
 
       <div style={{ background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>

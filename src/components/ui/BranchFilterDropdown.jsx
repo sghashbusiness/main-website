@@ -9,27 +9,30 @@ import { Store } from 'lucide-react';
 import { BRANCHES, BRANCH_LABELS } from '../../mock-data/inventory';
 import './BranchFilterDropdown.css';
 
+import CustomDropdown from './CustomDropdown';
+
 export default function BranchFilterDropdown({ className = '' }) {
   const { selectedBranch, setBranch } = useBranch();
+
+  const options = [
+    { value: 'all', label: 'All Branches (Consolidated)' },
+    ...Object.values(BRANCHES).map(branchId => ({
+      value: branchId,
+      label: BRANCH_LABELS[branchId]
+    }))
+  ];
 
   return (
     <div className={`branch-filter ${className}`}>
       <div className="branch-filter__icon-wrap">
         <Store size={16} className="branch-filter__icon" />
       </div>
-      <select
+      <CustomDropdown 
+        options={options}
         value={selectedBranch}
-        onChange={(e) => setBranch(e.target.value)}
-        className="branch-filter__select"
-        aria-label="Filter by branch"
-      >
-        <option value="all">All Branches (Consolidated)</option>
-        {Object.values(BRANCHES).map((branchId) => (
-          <option key={branchId} value={branchId}>
-            {BRANCH_LABELS[branchId]}
-          </option>
-        ))}
-      </select>
+        onChange={setBranch}
+        className="branch-filter__custom-dropdown"
+      />
     </div>
   );
 }

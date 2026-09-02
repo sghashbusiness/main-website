@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { useBranch } from '../../../hooks/useBranch';
+import { useTheme } from '../../../hooks/useTheme';
 import { getMetrics, getConsolidated } from '../../../services/analyticsService';
 import Spinner from '../../../components/ui/Spinner';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -14,6 +15,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function TenderSplitWidget() {
   const { selectedBranch, timePeriod } = useBranch();
+  const { isDark } = useTheme();
   const [tenderData, setTenderData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -40,7 +42,7 @@ export default function TenderSplitWidget() {
 
   if (loading) {
     return (
-      <div className="metric-card metric-card--dark flex-center" style={{ height: '100%' }}>
+      <div className="metric-card flex-center" style={{ height: '100%' }}>
         <Spinner size={32} />
       </div>
     );
@@ -53,11 +55,9 @@ export default function TenderSplitWidget() {
     datasets: [
       {
         data: [tenderData.cash, tenderData.upi, tenderData.card],
-        backgroundColor: [
-          '#16a34a', // var(--color-primary)
-          '#0ea5e9', // var(--color-info)
-          '#f59e0b', // var(--color-warning)
-        ],
+        backgroundColor: isDark 
+          ? ['#ccff00', '#00ccff', '#ff3366'] 
+          : ['#aadd00', '#00ccff', '#ff3366'],
         borderWidth: 0,
         hoverOffset: 4,
       },
@@ -71,7 +71,7 @@ export default function TenderSplitWidget() {
       legend: {
         position: 'bottom',
         labels: {
-          color: '#a3b8aa',
+          color: isDark ? '#a0a0a0' : '#666666',
           usePointStyle: true,
           padding: 20,
           font: {
@@ -90,7 +90,7 @@ export default function TenderSplitWidget() {
   };
 
   return (
-    <div className="metric-card metric-card--dark" style={{ height: '100%', minHeight: 300 }}>
+    <div className="metric-card" style={{ height: '100%', minHeight: 300 }}>
       <div className="metric-card__header" style={{ marginBottom: 'var(--space-md)' }}>
         <span className="metric-card__label">Tender Split</span>
       </div>

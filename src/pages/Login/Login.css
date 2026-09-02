@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #04140b url("/background-reference.png") center/cover no-repeat;
+  background: var(--color-body-bg);
 }
 
 .login-page__ambient-bg {
@@ -22,6 +22,9 @@
   height: 100%;
   z-index: 0;
   pointer-events: none;
+  background: radial-gradient(circle at top left, var(--color-primary-subtle) 0%, transparent 40%),
+              radial-gradient(circle at bottom right, rgba(0, 204, 255, 0.05) 0%, transparent 40%);
+  background-size: 200% 200%;
 }
 
 .login-page__content {
@@ -79,12 +82,12 @@
 
 /* ── Shared Card Elements ──────────────────────────────────────────────*/
 .login-card--dark {
-  background: rgba(30, 37, 33, 0.95); /* Dashboard panel dark green/grey */
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 16px;
+  background: var(--color-panel-bg);
+  backdrop-filter: var(--backdrop-panel);
+  -webkit-backdrop-filter: var(--backdrop-panel);
+  border-radius: var(--radius-2xl);
   padding: 40px 32px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  box-shadow: var(--color-panel-shadow);
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
@@ -139,7 +142,7 @@
 .login-card__brand-text {
   font-size: 10px;
   font-weight: 700;
-  color: #1a7b41;
+  color: #888888;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -154,7 +157,7 @@
 
 .login-card__subtitle {
   font-size: var(--font-size-sm);
-  color: #a0a8a3;
+  color: #a0a0a0;
   margin-top: 4px;
 }
 
@@ -177,20 +180,20 @@
 
 /* Dark theme overrides for InputField when used inside login card */
 .login-card--dark .input-field__wrapper {
-  background: #141916;
-  border: 1.5px solid #2a352c; 
-  border-radius: 8px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border); 
+  border-radius: var(--radius-sm);
+  box-shadow: none;
   transition: all 0.3s ease;
 }
 
 .login-card--dark .input-field__wrapper:hover {
-  border-color: rgba(34, 197, 94, 0.4);
+  border-color: var(--color-primary);
 }
 
 .login-card--dark .input-field__wrapper:focus-within {
-  border-color: #22c55e;
-  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-subtle);
 }
 
 .login-card--dark .input-field__input {
@@ -199,21 +202,21 @@
 }
 
 .login-card--dark .input-field__input::placeholder {
-  color: #6a746d;
+  color: #666666;
 }
 
 .login-card--dark .input-field__icon {
-  color: #22c55e; /* Vibrant green from dashboard */
+  color: #ffffff;
   opacity: 1;
 }
 
 /* Password Input toggles inside dark card */
 .login-card--dark .password-input__toggle {
-  color: #6a746d;
+  color: var(--color-text-tertiary);
 }
 
 .login-card--dark .password-input__toggle:hover {
-  color: #fff;
+  color: var(--color-primary);
 }
 
 .login-card__options {
@@ -231,7 +234,7 @@
 }
 
 .login-card__checkbox {
-  accent-color: #444; /* Dark gray */
+  accent-color: #444;
   background-color: #444;
   width: 16px;
   height: 16px;
@@ -259,8 +262,8 @@
 }
 
 .login-card__checkbox:hover {
-  box-shadow: 0 0 10px rgba(26, 123, 65, 0.3);
-  border-color: #1a7b41;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+  border-color: #888888;
 }
 
 .login-card__checkbox:disabled {
@@ -279,7 +282,7 @@
   background: none;
   border: none;
   font-size: var(--font-size-sm);
-  color: #22c55e; /* Vibrant dashboard green */
+  color: #ffffff;
   font-weight: 600;
   cursor: pointer;
   padding: 0;
@@ -287,9 +290,9 @@
 }
 
 .login-card__text-btn:hover:not(:disabled) {
-  color: #135d31;
+  color: var(--color-primary);
   text-decoration: underline;
-  text-shadow: 0 0 8px rgba(26, 123, 65, 0.3);
+  text-shadow: 0 0 8px var(--color-primary-glow);
 }
 
 .login-card__text-btn:disabled {
@@ -298,8 +301,8 @@
 }
 
 .login-card__submit-btn {
-  background-color: #22c55e; /* Dashboard vibrant green */
-  color: #ffffff;
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
   border: none;
   border-radius: 32px;
   padding: 14px;
@@ -312,12 +315,12 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 8px;
-  box-shadow: 0 4px 12px rgba(26, 123, 65, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
 }
 
 .login-card__submit-btn:hover:not(:disabled) {
-  background-color: #135d31;
-  box-shadow: 0 6px 16px rgba(26, 123, 65, 0.5);
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 6px 20px var(--color-primary-glow);
 }
 
 .login-card__submit-btn:active:not(:disabled) {

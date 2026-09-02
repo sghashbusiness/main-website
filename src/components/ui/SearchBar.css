@@ -3,16 +3,16 @@
   align-items: center;
   gap: var(--space-sm);
   padding: var(--space-sm) var(--space-md);
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
   border-radius: var(--radius-sm);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   min-width: 240px;
 }
 
 .search-bar:focus-within {
-  border-color: #1bc162;
-  box-shadow: 0 0 0 3px rgba(27, 193, 98, 0.2);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-focus-glow);
 }
 
 .search-bar__icon {
@@ -25,13 +25,13 @@
   border: none;
   background: none;
   outline: none;
-  color: #ffffff;
+  color: var(--color-input-text);
   font-size: var(--font-size-sm);
   min-width: 0;
 }
 
 .search-bar__input::placeholder {
-  color: #a3b8aa;
+  color: var(--color-input-placeholder);
 }
 
 .search-bar__shortcut {
@@ -39,9 +39,9 @@
   font-family: var(--font-family-primary);
   font-size: var(--font-size-2xs);
   font-weight: var(--font-weight-medium);
-  color: #a3b8aa;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-input-placeholder);
+  background: var(--color-surface-hover);
+  border: 1px solid var(--color-input-border);
   border-radius: var(--radius-xs);
   padding: 2px 6px;
   line-height: 1.3;

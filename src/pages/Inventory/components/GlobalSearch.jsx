@@ -72,7 +72,7 @@ export default function GlobalSearch() {
             shortcutHint=""
           />
         </div>
-        <button type="submit" className="pill-btn pill-btn--primary" disabled={loading || !query.trim()}>
+        <button type="submit" className="pill-btn pill-btn--primary pill-btn--md" disabled={loading || !query.trim()}>
           {loading ? <Spinner size={16} /> : 'Search'}
         </button>
       </form>

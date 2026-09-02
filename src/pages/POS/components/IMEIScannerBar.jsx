@@ -47,10 +47,10 @@ export default function IMEIScannerBar({ onScan, loading }) {
             width: '100%', 
             padding: 'var(--space-md) var(--space-xl) var(--space-md) 48px',
             fontSize: 'var(--font-size-lg)',
-            background: 'rgba(0, 0, 0, 0.2)',
-            border: '2px solid #1bc162',
+            background: 'var(--color-input-bg)',
+            border: '2px solid var(--color-primary)',
             borderRadius: 'var(--radius-lg)',
-            color: '#ffffff'
+            color: 'var(--color-input-text)'
           }}
         />
         <ScanBarcode size={24} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: 'var(--color-primary)' }} />

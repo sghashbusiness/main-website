@@ -1,7 +1,7 @@
 .seg-toggle {
   display: inline-flex;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
   border-radius: var(--radius-pill);
   padding: 3px;
   gap: 2px;
@@ -28,7 +28,7 @@
   gap: var(--space-xs);
   border-radius: var(--radius-pill);
   font-weight: var(--font-weight-medium);
-  color: #a3b8aa;
+  color: var(--color-muted-text);
   cursor: pointer;
   transition: all var(--transition-fast);
   white-space: nowrap;
@@ -37,12 +37,12 @@
 }
 
 .seg-toggle__item:hover:not(.seg-toggle__item--active) {
-  color: #ffffff;
+  color: var(--color-panel-text);
 }
 
 .seg-toggle__item--active {
-  background: #1bc162;
-  color: #ffffff;
+  background: var(--color-primary);
+  color: var(--color-body-bg);
   font-weight: var(--font-weight-semibold);
   box-shadow: var(--shadow-xs);
 }

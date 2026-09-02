@@ -5,96 +5,121 @@
 
 :root {
   /* ── Core Backgrounds (Dark Shell) ───────────────────────────────────
-     Deep forest green body background per AeuxGlobal reference.
+     Near-black body background for minimal B&W theme.
   ──────────────────────────────────────────────────────────────────── */
-  --color-body-bg: #0c1a12;
+  --color-body-bg: #0b0c10;
+  --bg-pattern: radial-gradient(circle at 15% 50%, rgba(204, 255, 0, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 204, 255, 0.04), transparent 25%);
+    
   --color-sidebar-bg: transparent;
-  --color-sidebar-text: #8c9c93;
+  --color-sidebar-text: #888888;
   --color-sidebar-text-hover: #ffffff;
-  --color-sidebar-active-bg: #1c2b22;
+  --color-sidebar-active-bg: #1a1a1a;
   --color-sidebar-active-text: #ffffff;
-  --color-sidebar-active-icon: #22c55e;
+  --color-sidebar-active-icon: #ffffff;
   --color-sidebar-border: transparent;
   
   --color-sidebar-search-bg: rgba(255, 255, 255, 0.04);
   --color-sidebar-search-border: rgba(255, 255, 255, 0.08);
-  --color-sidebar-search-text: #76877d;
+  --color-sidebar-search-text: #777777;
   
   --color-sidebar-profile-bg: transparent;
 
   /* ── Brand Accents ───────────────────────────────────────────────────
-     Vivid lime/emerald primary green.
+     Neon Yellow/Green on Deep Navy
   ──────────────────────────────────────────────────────────────────── */
-  --color-primary: #12b76a;
-  --color-primary-hover: #039855;
-  --color-primary-light: #d1fadf;
-  --color-primary-muted: #ecfdf3;
-  --color-primary-subtle: rgba(18, 183, 106, 0.08);
-  --color-primary-dark: #027a48;
-  --color-primary-glow: rgba(18, 183, 106, 0.25);
+  --color-primary: #ccff00;
+  --color-primary-hover: #b3e600;
+  --color-primary-light: #e6ff80;
+  --color-primary-muted: #1a2000;
+  --color-primary-subtle: rgba(204, 255, 0, 0.1);
+  --color-primary-dark: #99cc00;
+  --color-primary-glow: rgba(204, 255, 0, 0.25);
 
-  --color-danger: #ef4444;
-  --color-danger-hover: #dc2626;
-  --color-danger-light: #fecaca;
-  --color-danger-subtle: rgba(239, 68, 68, 0.08);
+  --color-danger: #ff3366;
+  --color-danger-hover: #e62e5c;
+  --color-danger-light: #ff99b3;
+  --color-danger-subtle: rgba(255, 51, 102, 0.1);
 
-  --color-warning: #f97316;
-  --color-warning-light: #fed7aa;
-  --color-warning-subtle: rgba(249, 115, 22, 0.08);
+  --color-warning: #ffb800;
+  --color-warning-light: #ffe080;
+  --color-warning-subtle: rgba(255, 184, 0, 0.1);
 
-  --color-info: #3b82f6;
-  --color-info-light: #bfdbfe;
-  --color-info-subtle: rgba(59, 130, 246, 0.08);
+  --color-info: #00ccff;
+  --color-info-light: #80e5ff;
+  --color-info-subtle: rgba(0, 204, 255, 0.1);
 
-  /* ── Surfaces (White Canvas) ─────────────────────────────────────────
-     The massive floating white card and its interior elements.
-  ──────────────────────────────────────────────────────────────────── */
-  --color-canvas: #f4f6f5; /* For the main white card background, maybe pure white is better, let's use #F9FAFB or #FFFFFF */
-  --color-canvas: #ffffff;
-  --color-canvas-subtle: #f8f9fa;
-  --color-canvas-elevated: #ffffff;
+  /* ── Surfaces (Dark Canvas) ───────────────────────────────────────── */
+  --color-canvas: #161821;
+  --color-canvas-subtle: #1a1c26;
+  --color-canvas-elevated: rgba(30, 32, 44, 0.7);
 
   /* Specific Card Theme Colors */
-  --color-card-white: #ffffff;
-  --color-card-white-border: rgba(0, 0, 0, 0.04);
+  --color-card-white: #161821;
+  --color-card-white-border: rgba(255, 255, 255, 0.03);
   
-  --color-card-dark: #0f1c14;
-  --color-card-dark-secondary: #1a2a1f;
+  --color-card-dark: #111111;
+  --color-card-dark-secondary: #1a1a1a;
   --color-card-dark-border: rgba(255, 255, 255, 0.05);
 
-  --color-card-mint: #eef7f1;
-  --color-card-mint-border: rgba(18, 183, 106, 0.1);
+  --color-card-mint: #f5f5f5;
+  --color-card-mint-border: rgba(0, 0, 0, 0.06);
+
+  /* ── Semantic Surface Tokens ────────────────────────────────────────
+     Used by panels, inputs, dividers — theme-switchable.
+  ──────────────────────────────────────────────────────────────────── */
+  --color-panel-bg: rgba(30, 32, 44, 0.7);
+  --backdrop-panel: blur(24px) saturate(180%);
+  --color-panel-border: rgba(255, 255, 255, 0.08);
+  --color-panel-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.04);
+  --color-panel-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.06);
+  --color-panel-text: #ffffff;
+  --color-muted-text: #8e93a6;
+  --color-input-bg: #1e202c;
+  --color-input-border: rgba(255, 255, 255, 0.05);
+  --color-input-text: #ffffff;
+  --color-input-placeholder: #a0a0a0;
+  --color-divider: rgba(255, 255, 255, 0.1);
+  --color-divider-subtle: rgba(255, 255, 255, 0.05);
+  --color-surface-hover: rgba(255, 255, 255, 0.05);
+  --color-surface-active: rgba(255, 255, 255, 0.08);
+  --color-canvas-shell-bg: transparent;
+  --color-canvas-shell-border: transparent;
+  --color-canvas-shell-shadow: none;
+  --logo-filter: brightness(0) saturate(100%) invert(86%) sepia(82%) saturate(1637%) hue-rotate(38deg) brightness(109%) contrast(106%);
+  --color-focus-glow: rgba(255, 255, 255, 0.15);
 
   /* ── Text ──────────────────────────────────────────────────────────── */
-  --color-text-primary: #111827;
-  --color-text-secondary: #4b5563;
-  --color-text-tertiary: #9ca3af;
-  --color-text-disabled: #d1d5db;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #8e93a6;
+  --color-text-tertiary: #5d637a;
+  --color-text-disabled: #3b3f52;
   --color-text-on-dark: #ffffff;
   --color-text-on-dark-muted: rgba(255, 255, 255, 0.65);
-  --color-text-kpi: #12b76a;
-  --color-text-kpi-negative: #ef4444;
-  --color-text-link: #12b76a;
+  --color-text-on-primary: #0b0c10;
+  --color-text-kpi: #ffffff;
+  --color-text-kpi-negative: #ff3366;
+  --color-text-link: #ccff00;
 
   /* ── Glass Effect (Login) ──────────────────────────────────────────── */
   --glass-bg: rgba(255, 255, 255, 0.07);
-  --glass-bg-solid: rgba(12, 30, 20, 0.85);
+  --glass-bg-solid: rgba(10, 10, 10, 0.85);
   --glass-border: rgba(255, 255, 255, 0.12);
   --glass-blur: 24px;
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
 
   /* ── Ambient Login Background ──────────────────────────────────────── */
-  --login-gradient-1: #040d08;
-  --login-gradient-2: #0a1f14;
-  --login-gradient-3: #061a0f;
-  --login-gradient-4: #0d2818;
-  --login-gradient-5: #081510;
+  --login-gradient-1: #050505;
+  --login-gradient-2: #0a0a0a;
+  --login-gradient-3: #080808;
+  --login-gradient-4: #0d0d0d;
+  --login-gradient-5: #060606;
 
   /* ── Borders ───────────────────────────────────────────────────────── */
-  --color-border: #eef0ef;
-  --color-border-light: #f5f7f6;
-  --color-border-focus: #12b76a;
-  --color-border-error: #ef4444;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-light: rgba(255, 255, 255, 0.04);
+  --color-border-focus: var(--color-primary);
+  --color-border-error: var(--color-danger);
 
   /* ── Spacing Scale ─────────────────────────────────────────────────── */
   --space-2xs: 2px;
@@ -149,3 +174,5 @@
   --header-height: 80px;
   --content-max-width: 1440px;
 }
+
+

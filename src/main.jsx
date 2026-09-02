@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
 import { ToastProvider } from './context/ToastContext';
 import { AuthProvider } from './context/AuthContext';
 import { BranchProvider } from './context/BranchContext';
@@ -9,21 +10,25 @@ import './index.css';
 
 /**
  * Provider composition order (outermost → innermost):
- * ToastProvider → AuthProvider → BranchProvider → Router → App
+ * ThemeProvider → ToastProvider → AuthProvider → BranchProvider → Router → App
  * 
- * Toast is outermost so auth errors can trigger toasts.
+ * Theme is outermost so all components can read the theme.
+ * Toast is next so auth errors can trigger toasts.
  * Auth wraps Branch so branch context can read user's assigned branch.
  */
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ToastProvider>
-      <AuthProvider>
-        <BranchProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </BranchProvider>
-      </AuthProvider>
-    </ToastProvider>
+    <ThemeProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <BranchProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </BranchProvider>
+        </AuthProvider>
+      </ToastProvider>
+    </ThemeProvider>
   </StrictMode>,
 );
+

@@ -26,7 +26,7 @@
 .top-header__title {
   font-size: 28px;
   font-weight: var(--font-weight-bold);
-  color: #ffffff;
+  color: var(--color-panel-text);
   letter-spacing: var(--letter-spacing-tight);
 }
 
@@ -42,16 +42,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #a3b8aa;
-  background: rgba(0, 0, 0, 0.2);
+  color: var(--color-muted-text);
+  background: var(--color-input-bg);
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-input-border);
   transition: all var(--transition-fast);
   position: relative;
+  cursor: pointer;
 }
 
 .top-header__icon-btn:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface-hover);
+  color: var(--color-panel-text);
+}
+
+/* ── Theme Toggle ──────────────────────────────────────────────────────*/
+.top-header__theme-toggle {
+  transition: all var(--transition-base);
+}
+
+.top-header__theme-toggle:hover {
+  transform: rotate(15deg);
 }
 
 .top-header__notification-dot {
@@ -62,7 +73,7 @@
   height: 8px;
   background: var(--color-danger);
   border-radius: 50%;
-  border: 2px solid #1e2a22;
+  border: 2px solid var(--color-panel-bg);
 }
 
 .top-header__profile {
@@ -70,29 +81,29 @@
   align-items: center;
   gap: var(--space-sm);
   padding: 4px 16px 4px 4px;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--color-input-bg);
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-input-border);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .top-header__profile:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: #1bc162;
+  background: var(--color-surface-hover);
+  border-color: var(--color-primary);
 }
 
 .top-header__avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1bc162, var(--color-primary-dark));
+  background: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
-  color: #ffffff;
+  color: var(--color-body-bg);
 }
 
 .top-header__profile-info {
@@ -104,12 +115,12 @@
 .top-header__profile-name {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
-  color: #ffffff;
+  color: var(--color-panel-text);
   line-height: 1.2;
 }
 
 .top-header__profile-role {
   font-size: var(--font-size-2xs);
-  color: #a3b8aa;
+  color: var(--color-muted-text);
   line-height: 1.2;
 }

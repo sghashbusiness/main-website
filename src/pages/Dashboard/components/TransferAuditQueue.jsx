@@ -67,15 +67,15 @@ export default function TransferAuditQueue() {
       key: 'status', 
       label: 'Status',
       render: (val) => (
-        <span style={{ 
-          fontSize: '11px',
-          padding: '4px 8px',
-          borderRadius: 'var(--radius-pill)',
-          background: 'rgba(255, 255, 255, 0.1)',
-          color: '#a3b8aa',
-          fontWeight: 600,
-          whiteSpace: 'nowrap'
-        }}>
+          <span style={{ 
+            fontSize: '11px',
+            padding: '4px 8px',
+            borderRadius: 'var(--radius-pill)',
+            background: 'var(--color-surface-hover)',
+            color: 'var(--color-muted-text)',
+            fontWeight: 600,
+            whiteSpace: 'nowrap'
+          }}>
           {TRANSFER_STATUS_LABELS[val]}
         </span>
       )

@@ -13,7 +13,7 @@
 }
 
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
 }
 
 html, body {
@@ -21,9 +21,12 @@ html, body {
   height: 100%;
   overflow-x: hidden;
   font-family: var(--font-family-primary);
-  background: #04140b url("/background-reference.png") center/cover fixed;
+  background: var(--color-body-bg);
+  background-image: var(--bg-pattern);
+  background-attachment: fixed;
   color: var(--color-text-primary);
   line-height: var(--line-height-base);
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -78,10 +81,11 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(18, 183, 106, 0.5); /* Primary green with transparency */
+  background: var(--color-muted-text);
   border-radius: var(--radius-pill);
+  opacity: 0.5;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(18, 183, 106, 0.8);
+  opacity: 0.8;
 }

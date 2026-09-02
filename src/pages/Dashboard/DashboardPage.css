@@ -17,12 +17,14 @@
   gap: var(--space-md);
   flex-wrap: wrap;
   padding: var(--space-md);
-  background: #1e2a22;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--color-panel-bg);
+  backdrop-filter: var(--backdrop-panel);
+  -webkit-backdrop-filter: var(--backdrop-panel);
+  border: 1px solid var(--color-panel-border);
   border-radius: var(--radius-lg);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--color-panel-shadow);
   transition: all 0.3s ease;
-  color: #ffffff;
+  color: var(--color-panel-text);
 }
 
 .dashboard__controls-bar:hover {
@@ -88,14 +90,16 @@
 .dashboard__staff-area {
   display: flex;
   flex-direction: column;
-  background: #1e2a22;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--color-panel-bg);
+  backdrop-filter: var(--backdrop-panel);
+  -webkit-backdrop-filter: var(--backdrop-panel);
+  border: 1px solid var(--color-panel-border);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--color-panel-shadow);
   height: 100%;
   transition: all 0.3s ease;
-  color: #ffffff;
+  color: var(--color-panel-text);
 }
 
 .dashboard__inventory-area:hover,
@@ -114,12 +118,10 @@
 }
 
 /* ── Dark Mode Overrides for Dashboard Tables & Text ───────────────────*/
-.dashboard-page .text-section-header {
-  color: #ffffff;
+  color: var(--color-panel-text);
 }
 
-.dashboard-page .text-on-canvas-muted {
-  color: #a3b8aa !important;
+  color: var(--color-muted-text) !important;
 }
 
 .dashboard__inventory-area .data-table-container,
@@ -131,54 +133,46 @@
 .dashboard__inventory-area .data-table__th,
 .dashboard__transfers-area .data-table__th,
 .dashboard__staff-area .data-table__th {
-  background: rgba(255, 255, 255, 0.03);
-  color: #a3b8aa;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-surface-hover);
+  color: var(--color-muted-text);
+  border-bottom: 1px solid var(--color-divider);
 }
 
-.dashboard__inventory-area .data-table__td,
-.dashboard__transfers-area .data-table__td,
-.dashboard__staff-area .data-table__td {
-  color: #ffffff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--color-panel-text);
+  border-bottom: 1px solid var(--color-divider-subtle);
 }
 
 .dashboard__inventory-area .data-table__tr--clickable:hover,
 .dashboard__transfers-area .data-table__tr--clickable:hover,
 .dashboard__staff-area .data-table__tr--clickable:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface-hover);
 }
 
 /* ── Dark Mode Overrides for UI Controls (Toggles/Dropdowns) ───────────*/
 .dashboard-page .seg-toggle {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
 }
 
-.dashboard-page .seg-toggle__item {
-  color: #a3b8aa;
+  color: var(--color-muted-text);
 }
 
-.dashboard-page .seg-toggle__item:hover:not(.seg-toggle__item--active) {
-  color: #ffffff;
+  color: var(--color-panel-text);
 }
 
-.dashboard-page .seg-toggle__item--active {
-  background: #1bc162;
-  color: #ffffff;
+  background: var(--color-primary);
+  color: var(--color-body-bg);
 }
 
 .dashboard-page .branch-filter {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
 }
 
-.dashboard-page .branch-filter__select {
-  color: #a3b8aa;
+  color: var(--color-muted-text);
 }
 
-.dashboard-page .branch-filter__icon {
-  color: #1bc162;
+  color: var(--color-primary);
 }
 
 /* ── Responsive Overrides ──────────────────────────────────────────────*/

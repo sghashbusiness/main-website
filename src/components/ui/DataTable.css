@@ -4,11 +4,13 @@
   border-radius: var(--radius-lg);
   border: none;
   background: var(--color-canvas-elevated);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
 .data-table-container:hover {
-  box-shadow: 0 0 16px rgba(18, 183, 106, 0.4); /* Primary green glow */
+  box-shadow: 0 0 16px var(--color-focus-glow);
 }
 
 .data-table {

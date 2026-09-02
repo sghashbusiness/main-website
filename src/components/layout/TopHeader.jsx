@@ -3,14 +3,13 @@
  */
 
 import { useState } from 'react';
-import { Bell } from 'lucide-react';
+import { Bell, Sun, Moon } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { ROLE_LABELS } from '../../mock-data/users';
 import Modal from '../ui/Modal';
 import InputField from '../ui/InputField';
 import PillButton from '../ui/PillButton';
-import './TopHeader.css';
 import './TopHeader.css';
 
 export default function TopHeader() {
@@ -68,3 +67,4 @@ export default function TopHeader() {
   </>
   );
 }
+

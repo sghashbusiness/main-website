@@ -1,39 +1,45 @@
 .metric-card {
+  border-radius: var(--radius-xl);
   padding: var(--space-xl);
-  border-radius: var(--radius-xl); /* Big bubbly corners */
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease;
   gap: var(--space-sm);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
-  border: none; /* Clean look */
+  background: var(--color-panel-bg);
+  backdrop-filter: var(--backdrop-panel);
+  -webkit-backdrop-filter: var(--backdrop-panel);
+  border: 1px solid var(--color-panel-border);
+  box-shadow: var(--color-panel-shadow);
 }
 
 .metric-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 35px rgba(26, 123, 65, 0.15);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--color-panel-shadow-hover);
+  border-color: var(--color-primary-subtle);
+  z-index: 2;
 }
 
-/* ── Dark Variant ──────────────────────────────────────────────────────*/
-.metric-card--dark {
-  background: #1e2a22;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+/* ── Standard Variant ──────────────────────────────────────────────────*/
+.metric-card--dark .metric-card__label,
+.metric-card--standard .metric-card__label {
+  color: var(--color-muted-text);
 }
 
-.metric-card--dark .metric-card__label {
-  color: #a3b8aa;
+.metric-card--dark .metric-card__value,
+.metric-card--standard .metric-card__value {
+  color: var(--color-panel-text);
 }
 
-.metric-card--dark .metric-card__value {
-  color: #ffffff;
+.metric-card--dark .metric-card__icon,
+.metric-card--standard .metric-card__icon {
+  color: var(--color-panel-text);
 }
 
-.metric-card--dark .metric-card__icon {
-  color: #1bc162;
-}
-
-.metric-card--dark .metric-card__unit {
-  color: #a3b8aa;
+.metric-card--dark .metric-card__unit,
+.metric-card--standard .metric-card__unit {
+  color: var(--color-muted-text);
 }
 
 /* ── White Variant ─────────────────────────────────────────────────────*/
@@ -46,7 +52,7 @@
 }
 
 .metric-card--white:hover {
-  box-shadow: 0 12px 35px rgba(26, 123, 65, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .metric-card--white .metric-card__label {
@@ -66,8 +72,8 @@
   background: rgba(238, 247, 241, 0.7);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(18, 183, 106, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(18, 183, 106, 0.2);
+  border: 1px solid var(--color-panel-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), inset 0 0 0 1px var(--color-panel-border);
 }
 
 .metric-card--mint .metric-card__label {
@@ -138,11 +144,13 @@
   font-size: var(--font-size-xs);
 }
 
-/* ── Dark Variant Trend Overrides ──────────────────────────────────────*/
-.metric-card--dark .metric-card__trend--positive {
-  color: #1bc162;
+/* ── Trend Overrides ──────────────────────────────────────*/
+.metric-card--dark .metric-card__trend--positive,
+.metric-card--standard .metric-card__trend--positive {
+  color: var(--color-panel-text);
 }
-.metric-card--dark .metric-card__trend-label {
-  color: #0e9b48;
+.metric-card--dark .metric-card__trend-label,
+.metric-card--standard .metric-card__trend-label {
+  color: var(--color-muted-text);
   opacity: 1;
 }
