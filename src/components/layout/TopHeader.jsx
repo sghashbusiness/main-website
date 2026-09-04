@@ -44,7 +44,6 @@ export default function TopHeader() {
           </div>
           <div className="top-header__profile-info">
             <span className="top-header__profile-name">{user?.displayName}</span>
-            <span className="top-header__profile-role">{ROLE_LABELS[role] || role}</span>
           </div>
         </button>
       </div>

@@ -30,14 +30,16 @@
 
 .app-shell__canvas {
   flex: 1;
-  background: var(--color-canvas-shell-bg);
-  border: 1px solid var(--color-canvas-shell-border);
+  background: var(--color-canvas);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-2xl); /* Huge rounded corners */
   overflow: hidden; /* clip inner content */
   display: flex;
   flex-direction: column;
   position: relative;
-  box-shadow: var(--color-canvas-shell-shadow);
+  box-shadow: var(--shadow-glass);
   min-width: 0;
   transition: background-color 0.4s ease, border-color 0.4s ease;
 }

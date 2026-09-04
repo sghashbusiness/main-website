@@ -4,42 +4,41 @@
    ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
-  /* ── Core Backgrounds (Dark Shell) ───────────────────────────────────
-     Near-black body background for minimal B&W theme.
+  /* ── Core Backgrounds (Aquatic Shell) ───────────────────────────────
+     Vibrant teal-to-green gradient for the main application shell.
   ──────────────────────────────────────────────────────────────────── */
-  --color-body-bg: #0b0c10;
-  --bg-pattern: radial-gradient(circle at 15% 50%, rgba(204, 255, 0, 0.05), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(0, 204, 255, 0.04), transparent 25%);
+  --color-body-bg: #8adcec;
+  --bg-pattern: linear-gradient(145deg, #8adcec 0%, #baf4e6 50%, #80eec9 100%);
     
   --color-sidebar-bg: transparent;
-  --color-sidebar-text: #888888;
-  --color-sidebar-text-hover: #ffffff;
-  --color-sidebar-active-bg: #1a1a1a;
+  --color-sidebar-text: #466a80;
+  --color-sidebar-text-hover: #1a4b6b;
+  --color-sidebar-active-bg: rgba(97, 184, 214, 0.2);
   --color-sidebar-active-text: #ffffff;
   --color-sidebar-active-icon: #ffffff;
   --color-sidebar-border: transparent;
   
-  --color-sidebar-search-bg: rgba(255, 255, 255, 0.04);
-  --color-sidebar-search-border: rgba(255, 255, 255, 0.08);
-  --color-sidebar-search-text: #777777;
+  --color-sidebar-search-bg: rgba(255, 255, 255, 0.4);
+  --color-sidebar-search-border: rgba(255, 255, 255, 0.6);
+  --color-sidebar-search-text: #466a80;
   
   --color-sidebar-profile-bg: transparent;
 
   /* ── Brand Accents ───────────────────────────────────────────────────
-     Neon Yellow/Green on Deep Navy
+     Cyan/Blue and Soft Greens
   ──────────────────────────────────────────────────────────────────── */
-  --color-primary: #ccff00;
-  --color-primary-hover: #b3e600;
-  --color-primary-light: #e6ff80;
-  --color-primary-muted: #1a2000;
-  --color-primary-subtle: rgba(204, 255, 0, 0.1);
-  --color-primary-dark: #99cc00;
-  --color-primary-glow: rgba(204, 255, 0, 0.25);
+  --color-primary: #61b8d6;
+  --color-primary-hover: #4ea8c7;
+  --color-primary-light: #8cd6f2;
+  --color-primary-muted: #e6f6fa;
+  --color-primary-subtle: rgba(97, 184, 214, 0.15);
+  --color-primary-dark: #3a8fb0;
+  --color-primary-glow: rgba(97, 184, 214, 0.4);
 
-  --color-danger: #ff3366;
-  --color-danger-hover: #e62e5c;
-  --color-danger-light: #ff99b3;
-  --color-danger-subtle: rgba(255, 51, 102, 0.1);
+  --color-danger: #ff5277;
+  --color-danger-hover: #e6395e;
+  --color-danger-light: #ffb8c7;
+  --color-danger-subtle: rgba(255, 82, 119, 0.1);
 
   --color-warning: #ffb800;
   --color-warning-light: #ffe080;
@@ -49,18 +48,18 @@
   --color-info-light: #80e5ff;
   --color-info-subtle: rgba(0, 204, 255, 0.1);
 
-  /* ── Surfaces (Dark Canvas) ───────────────────────────────────────── */
-  --color-canvas: #161821;
-  --color-canvas-subtle: #1a1c26;
-  --color-canvas-elevated: rgba(30, 32, 44, 0.7);
+  /* ── Surfaces (Frosted Glass) ─────────────────────────────────────── */
+  --color-canvas: rgba(255, 255, 255, 0.45);
+  --color-canvas-subtle: rgba(255, 255, 255, 0.6);
+  --color-canvas-elevated: rgba(255, 255, 255, 0.8);
 
   /* Specific Card Theme Colors */
-  --color-card-white: #161821;
-  --color-card-white-border: rgba(255, 255, 255, 0.03);
+  --color-card-white: rgba(255, 255, 255, 0.55);
+  --color-card-white-border: rgba(255, 255, 255, 0.6);
   
-  --color-card-dark: #111111;
-  --color-card-dark-secondary: #1a1a1a;
-  --color-card-dark-border: rgba(255, 255, 255, 0.05);
+  --color-card-dark: rgba(255, 255, 255, 0.4);
+  --color-card-dark-secondary: rgba(255, 255, 255, 0.5);
+  --color-card-dark-border: rgba(255, 255, 255, 0.3);
 
   --color-card-mint: #f5f5f5;
   --color-card-mint-border: rgba(0, 0, 0, 0.06);
@@ -68,56 +67,56 @@
   /* ── Semantic Surface Tokens ────────────────────────────────────────
      Used by panels, inputs, dividers — theme-switchable.
   ──────────────────────────────────────────────────────────────────── */
-  --color-panel-bg: rgba(30, 32, 44, 0.7);
-  --backdrop-panel: blur(24px) saturate(180%);
-  --color-panel-border: rgba(255, 255, 255, 0.08);
-  --color-panel-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.04);
-  --color-panel-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.06);
-  --color-panel-text: #ffffff;
-  --color-muted-text: #8e93a6;
-  --color-input-bg: #1e202c;
-  --color-input-border: rgba(255, 255, 255, 0.05);
-  --color-input-text: #ffffff;
-  --color-input-placeholder: #a0a0a0;
-  --color-divider: rgba(255, 255, 255, 0.1);
-  --color-divider-subtle: rgba(255, 255, 255, 0.05);
-  --color-surface-hover: rgba(255, 255, 255, 0.05);
-  --color-surface-active: rgba(255, 255, 255, 0.08);
+  --color-panel-bg: rgba(255, 255, 255, 0.55);
+  --backdrop-panel: blur(24px);
+  --color-panel-border: rgba(255, 255, 255, 0.6);
+  --color-panel-shadow: 0 8px 32px rgba(0, 150, 150, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  --color-panel-shadow-hover: 0 16px 40px rgba(0, 150, 150, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  --color-panel-text: #1a4b6b;
+  --color-muted-text: #5985a1;
+  --color-input-bg: rgba(255, 255, 255, 0.65);
+  --color-input-border: rgba(255, 255, 255, 0.8);
+  --color-input-text: #1a4b6b;
+  --color-input-placeholder: #7ca5be;
+  --color-divider: rgba(255, 255, 255, 0.5);
+  --color-divider-subtle: rgba(255, 255, 255, 0.3);
+  --color-surface-hover: rgba(255, 255, 255, 0.6);
+  --color-surface-active: rgba(255, 255, 255, 0.8);
   --color-canvas-shell-bg: transparent;
   --color-canvas-shell-border: transparent;
   --color-canvas-shell-shadow: none;
-  --logo-filter: brightness(0) saturate(100%) invert(86%) sepia(82%) saturate(1637%) hue-rotate(38deg) brightness(109%) contrast(106%);
-  --color-focus-glow: rgba(255, 255, 255, 0.15);
+  --logo-filter: none;
+  --color-focus-glow: rgba(97, 184, 214, 0.3);
 
   /* ── Text ──────────────────────────────────────────────────────────── */
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #8e93a6;
-  --color-text-tertiary: #5d637a;
-  --color-text-disabled: #3b3f52;
-  --color-text-on-dark: #ffffff;
-  --color-text-on-dark-muted: rgba(255, 255, 255, 0.65);
-  --color-text-on-primary: #0b0c10;
-  --color-text-kpi: #ffffff;
-  --color-text-kpi-negative: #ff3366;
-  --color-text-link: #ccff00;
+  --color-text-primary: #1a4b6b;
+  --color-text-secondary: #466a80;
+  --color-text-tertiary: #5985a1;
+  --color-text-disabled: #8caebd;
+  --color-text-on-dark: #1a4b6b;
+  --color-text-on-dark-muted: rgba(26, 75, 107, 0.65);
+  --color-text-on-primary: #ffffff;
+  --color-text-kpi: #1a4b6b;
+  --color-text-kpi-negative: #ff5277;
+  --color-text-link: #3a8fb0;
 
   /* ── Glass Effect (Login) ──────────────────────────────────────────── */
-  --glass-bg: rgba(255, 255, 255, 0.07);
-  --glass-bg-solid: rgba(10, 10, 10, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-bg-solid: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.6);
   --glass-blur: 24px;
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --glass-shadow: 0 8px 32px rgba(0, 150, 150, 0.15);
 
   /* ── Ambient Login Background ──────────────────────────────────────── */
-  --login-gradient-1: #050505;
-  --login-gradient-2: #0a0a0a;
-  --login-gradient-3: #080808;
-  --login-gradient-4: #0d0d0d;
-  --login-gradient-5: #060606;
+  --login-gradient-1: #8adcec;
+  --login-gradient-2: #baf4e6;
+  --login-gradient-3: #80eec9;
+  --login-gradient-4: #a4ebf3;
+  --login-gradient-5: #90f1d3;
 
   /* ── Borders ───────────────────────────────────────────────────────── */
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-light: rgba(255, 255, 255, 0.04);
+  --color-border: rgba(255, 255, 255, 0.5);
+  --color-border-light: rgba(255, 255, 255, 0.3);
   --color-border-focus: var(--color-primary);
   --color-border-error: var(--color-danger);
 
@@ -134,23 +133,23 @@
   /* ── Border Radius ───────────────────────────────────────────────────
      Massively increased radii for the new bubbly aesthetic.
   ──────────────────────────────────────────────────────────────────── */
-  --radius-xs: 6px;
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-2xl: 40px;
   --radius-pill: 9999px;
 
   /* ── Shadows ─────────────────────────────────────────────────────────
      Very soft, diffused shadows.
   ──────────────────────────────────────────────────────────────────── */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
-  --shadow-elevated: 0 10px 25px rgba(0, 0, 0, 0.04);
-  --shadow-dropdown: 0 15px 35px rgba(0, 0, 0, 0.06);
-  --shadow-modal: 0 25px 50px rgba(0, 0, 0, 0.15);
-  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.25);
+  --shadow-xs: 0 2px 4px rgba(0, 150, 150, 0.02);
+  --shadow-card: 0 4px 15px rgba(0, 150, 150, 0.03), 0 2px 4px rgba(0, 150, 150, 0.02);
+  --shadow-elevated: 0 10px 25px rgba(0, 150, 150, 0.04);
+  --shadow-dropdown: 0 15px 35px rgba(0, 150, 150, 0.06);
+  --shadow-modal: 0 25px 50px rgba(0, 150, 150, 0.1);
+  --shadow-glass: 0 8px 32px rgba(0, 150, 150, 0.05);
 
   /* ── Z-Index Scale ─────────────────────────────────────────────────── */
   --z-base: 0;
@@ -174,5 +173,6 @@
   --header-height: 80px;
   --content-max-width: 1440px;
 }
+
 
 

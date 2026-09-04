@@ -55,9 +55,7 @@ export default function TenderSplitWidget() {
     datasets: [
       {
         data: [tenderData.cash, tenderData.upi, tenderData.card],
-        backgroundColor: isDark 
-          ? ['#ccff00', '#00ccff', '#ff3366'] 
-          : ['#aadd00', '#00ccff', '#ff3366'],
+        backgroundColor: ['#2ac079', '#2490d1', '#7843d1'],
         borderWidth: 0,
         hoverOffset: 4,
       },

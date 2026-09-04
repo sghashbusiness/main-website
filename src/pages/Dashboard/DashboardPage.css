@@ -117,9 +117,10 @@
   align-items: start;
 }
 
-/* ── Dark Mode Overrides for Dashboard Tables & Text ───────────────────*/
+/* ── Dashboard Table & Text Adjustments ─────────────────────────────*/
 .dashboard-page .text-section-header {
   color: var(--color-panel-text);
+  margin-bottom: var(--space-sm);
 }
 
 .dashboard-page .text-on-canvas-muted {
@@ -135,9 +136,10 @@
 .dashboard__inventory-area .data-table__th,
 .dashboard__transfers-area .data-table__th,
 .dashboard__staff-area .data-table__th {
-  background: var(--color-surface-hover);
+  background: transparent;
   color: var(--color-muted-text);
   border-bottom: 1px solid var(--color-divider);
+  font-weight: var(--font-weight-medium);
 }
 
 .dashboard__inventory-area .data-table__td,
@@ -153,14 +155,17 @@
   background: var(--color-surface-hover);
 }
 
-/* ── Dark Mode Overrides for UI Controls (Toggles/Dropdowns) ───────────*/
+/* ── UI Controls Adjustments ───────────*/
 .dashboard-page .seg-toggle {
   background: var(--color-input-bg);
   border: 1px solid var(--color-input-border);
+  padding: 4px;
+  border-radius: var(--radius-pill);
 }
 
 .dashboard-page .seg-toggle__item {
   color: var(--color-muted-text);
+  border-radius: var(--radius-pill);
 }
 
 .dashboard-page .seg-toggle__item:hover:not(.seg-toggle__item--active) {
@@ -169,7 +174,7 @@
 
 .dashboard-page .seg-toggle__item--active {
   background: var(--color-primary);
-  color: var(--color-body-bg);
+  color: #ffffff;
 }
 
 .dashboard-page .branch-filter {
@@ -178,7 +183,7 @@
 }
 
 .dashboard-page .branch-filter__select {
-  color: var(--color-muted-text);
+  color: var(--color-panel-text);
 }
 
 .dashboard-page .branch-filter__icon {

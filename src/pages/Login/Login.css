@@ -86,7 +86,7 @@
   backdrop-filter: var(--backdrop-panel);
   -webkit-backdrop-filter: var(--backdrop-panel);
   border-radius: var(--radius-2xl);
-  padding: 40px 32px;
+  padding: 20px 32px 40px;
   box-shadow: var(--color-panel-shadow);
   display: flex;
   flex-direction: column;
@@ -111,18 +111,18 @@
 }
 
 .login-card__logo-icon {
-  width: 80px;
+  width: 100px;
   height: auto;
   object-fit: contain;
-  margin-bottom: 8px;
-  filter: brightness(0) invert(1); /* Make it white for dark background */
+  margin-bottom: 2px;
+  filter: var(--logo-filter);
 }
 
 .login-card__logo-text {
-  width: 160px;
+  width: 150px;
   height: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1); /* Make it white for dark background */
+  filter: var(--logo-filter);
 }
 
 .login-card__brand-subtitle {
@@ -222,7 +222,7 @@
 .login-card__options {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 4px;
 }
 

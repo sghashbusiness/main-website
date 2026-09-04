@@ -42,7 +42,7 @@
 
 .seg-toggle__item--active {
   background: var(--color-primary);
-  color: var(--color-body-bg);
+  color: #ffffff;
   font-weight: var(--font-weight-semibold);
   box-shadow: var(--shadow-xs);
 }

@@ -65,7 +65,7 @@
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-snug);
-  color: var(--color-text-on-dark);
+  color: var(--color-text-primary);
 }
 
 .text-card-title {

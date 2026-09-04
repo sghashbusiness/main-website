@@ -19,7 +19,6 @@ export default function LoginCard({ onFlipToRecovery }) {
 
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -30,7 +29,7 @@ export default function LoginCard({ onFlipToRecovery }) {
     setError(null);
     setIsLoading(true);
 
-    const result = await login(identifier, password, rememberMe);
+    const result = await login(identifier, password, false);
 
     if (result.success) {
       toastSuccess(`Welcome back, ${result.data.user.displayName}`);
@@ -49,10 +48,6 @@ export default function LoginCard({ onFlipToRecovery }) {
           <img src="/sghash-green-logo.png" alt="SGHASH Icon" className="login-card__logo-icon" />
           <img src="/sghash-logo-text-new.png" alt="SGHASH ONE" className="login-card__logo-text" />
         </div>
-        <div className="login-card__brand-subtitle">
-          <span className="login-card__brand-line"></span>
-        </div>
-        <p className="login-card__subtitle">Sign in to your SGHASH workspace</p>
       </div>
 
       <form onSubmit={handleSubmit} className="login-card__form">
@@ -79,16 +74,7 @@ export default function LoginCard({ onFlipToRecovery }) {
         {error && <div className="login-card__error">{error}</div>}
 
         <div className="login-card__options">
-          <label className="login-card__checkbox-label">
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-              disabled={isLoading}
-              className="login-card__checkbox"
-            />
-            <span className="login-card__checkbox-text">Remember me</span>
-          </label>
+
           <button
             type="button"
             className="login-card__text-btn"
