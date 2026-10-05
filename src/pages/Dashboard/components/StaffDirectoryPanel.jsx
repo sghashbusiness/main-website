@@ -59,6 +59,27 @@ export default function StaffDirectoryPanel() {
         </span>
       )
     },
+    {
+      key: 'actions',
+      label: '',
+      align: 'right',
+      render: (_, row) => (
+        <div className="staff-row-actions">
+          <button 
+            style={{ padding: '4px 8px', fontSize: '10px', background: 'transparent', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-sm)', color: 'var(--color-panel-text)', cursor: 'pointer' }}
+            onClick={(e) => { e.stopPropagation(); /* simulate suspend */ }}
+          >
+            Suspend
+          </button>
+          <button 
+            style={{ padding: '4px 8px', fontSize: '10px', background: 'var(--color-primary-dark)', border: 'none', borderRadius: 'var(--radius-sm)', color: '#fff', cursor: 'pointer' }}
+            onClick={(e) => { e.stopPropagation(); /* simulate reset PIN */ }}
+          >
+            Reset PIN
+          </button>
+        </div>
+      )
+    }
   ];
 
   if (loading) return <div className="flex-center" style={{ height: 200 }}><Spinner size={24} /></div>;

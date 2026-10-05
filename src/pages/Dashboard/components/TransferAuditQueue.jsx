@@ -51,34 +51,49 @@ export default function TransferAuditQueue() {
     { 
       key: 'date', 
       label: 'Date',
+      align: 'center',
       render: (val) => format(new Date(val), 'dd MMM, HH:mm')
     },
     { 
       key: 'route', 
       label: 'Route',
+      align: 'center',
       render: (_, row) => (
-        <div style={{ fontSize: 'var(--font-size-xs)' }}>
-          <div>{BRANCH_LABELS[row.sourceBranch]}</div>
-          <div style={{ color: 'var(--color-text-tertiary)' }}>→ {BRANCH_LABELS[row.destinationBranch]}</div>
-        </div>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontWeight: 500 }}>
+          <span>{BRANCH_LABELS[row.sourceBranch]}</span>
+          <span style={{ color: 'var(--color-text-tertiary)' }}>→</span> 
+          <span>{BRANCH_LABELS[row.destinationBranch]}</span>
+        </span>
       )
     },
     { 
       key: 'status', 
       label: 'Status',
+      align: 'center',
       render: (val) => (
           <span style={{ 
-            fontSize: '11px',
-            padding: '4px 8px',
+            fontSize: 'var(--font-size-xs)',
+            padding: '4px 10px',
             borderRadius: 'var(--radius-pill)',
             background: 'var(--color-surface-hover)',
-            color: 'var(--color-muted-text)',
+            color: 'var(--color-text-primary)',
             fontWeight: 600,
             whiteSpace: 'nowrap'
           }}>
           {TRANSFER_STATUS_LABELS[val]}
         </span>
       )
+    },
+    {
+      key: 'eta',
+      label: 'ETA',
+      align: 'center',
+      render: (_, row) => {
+        if (row.status === TRANSFER_STATUSES.IN_TRANSIT) return '2 Hours';
+        if (row.status === TRANSFER_STATUSES.PENDING_VERIFICATION) return 'Pending...';
+        if (row.status === TRANSFER_STATUSES.APPROVED) return 'Dispatching';
+        return '—';
+      }
     },
     { 
       key: 'action', 
@@ -96,7 +111,7 @@ export default function TransferAuditQueue() {
             </PillButton>
           );
         }
-        return <span style={{ color: 'var(--color-text-tertiary)', fontSize: 12 }}>—</span>;
+        return <span style={{ color: 'var(--color-text-tertiary)' }}>—</span>;
       }
     }
   ];
@@ -105,6 +120,11 @@ export default function TransferAuditQueue() {
 
   return (
     <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-md)' }}>
+        <h3 style={{ margin: 0, color: 'var(--color-panel-text)', fontSize: 'var(--font-size-lg)', fontWeight: 'var(--font-weight-semibold)' }}>
+          Stock Transfer
+        </h3>
+      </div>
       <DataTable
         columns={columns}
         data={transfers}

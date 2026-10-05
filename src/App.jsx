@@ -13,6 +13,7 @@ import AppShell from './components/layout/AppShell';
 import { ROLES, ROLE_DEFAULT_ROUTES } from './mock-data/db';
 
 import LoginPage from './pages/Login/LoginPage';
+import './components/layout/StarsBackground.css';
 
 /* ── Placeholder pages (replaced in Phases 6-8) ──────────────────────*/
 function PlaceholderPage({ title, description }) {
@@ -49,70 +50,81 @@ function App() {
   }
 
   return (
-    <Routes>
-      {/* ── Public: Login (full-screen, no sidebar) ─────────────── */}
-      <Route
-        path="/login"
-        element={
-          isAuthenticated
-            ? <Navigate to={ROLE_DEFAULT_ROUTES[role] || '/dashboard'} replace />
-            : <LoginPage />
-        }
-      />
+    <>
+      {/* Animated ambient starry background globally */}
+      <div className="global-ambient-bg">
+        <div id="stars" />
+        <div id="stars2" />
+        <div id="stars3" />
+      </div>
 
-      {/* ── Protected routes inside AppShell ─────────────────────── */}
-      <Route element={
-        <ProtectedRoute>
-          <AppShell />
-        </ProtectedRoute>
-      }>
-        {/* Executive Dashboard */}
-        <Route path="/dashboard" element={
-          <ProtectedRoute allowedRoles={[ROLES.OWNER]}>
-            <DashboardPage />
-          </ProtectedRoute>
-        } />
-        <Route path="/dashboard/*" element={
-          <ProtectedRoute allowedRoles={[ROLES.OWNER]}>
-            <DashboardPage />
-          </ProtectedRoute>
-        } />
+      <div style={{ position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <Routes>
+          {/* ── Public: Login (full-screen, no sidebar) ─────────────── */}
+          <Route
+            path="/login"
+            element={
+              isAuthenticated
+                ? <Navigate to={ROLE_DEFAULT_ROUTES[role] || '/dashboard'} replace />
+                : <LoginPage />
+            }
+          />
 
-        {/* Stock Operations */}
-        <Route path="/inventory" element={
-          <ProtectedRoute allowedRoles={[ROLES.OWNER, ROLES.INVENTORY_MANAGER]}>
-            <InventoryPage />
-          </ProtectedRoute>
-        } />
-        <Route path="/inventory/*" element={
-          <ProtectedRoute allowedRoles={[ROLES.OWNER, ROLES.INVENTORY_MANAGER]}>
-            <InventoryPage />
-          </ProtectedRoute>
-        } />
+          {/* ── Protected routes inside AppShell ─────────────────────── */}
+          <Route element={
+            <ProtectedRoute>
+              <AppShell />
+            </ProtectedRoute>
+          }>
+            {/* Executive Dashboard */}
+            <Route path="/dashboard" element={
+              <ProtectedRoute allowedRoles={[ROLES.OWNER]}>
+                <DashboardPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/*" element={
+              <ProtectedRoute allowedRoles={[ROLES.OWNER]}>
+                <DashboardPage />
+              </ProtectedRoute>
+            } />
 
-        {/* POS Terminal */}
-        <Route path="/pos" element={
-          <ProtectedRoute allowedRoles={[ROLES.OWNER, ROLES.BILLING_CLERK]}>
-            <POSPage />
-          </ProtectedRoute>
-        } />
-        <Route path="/pos/*" element={
-          <ProtectedRoute allowedRoles={[ROLES.OWNER, ROLES.BILLING_CLERK]}>
-            <POSPage />
-          </ProtectedRoute>
-        } />
-      </Route>
+            {/* Stock Operations */}
+            <Route path="/inventory" element={
+              <ProtectedRoute allowedRoles={[ROLES.OWNER, ROLES.INVENTORY_MANAGER]}>
+                <InventoryPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/inventory/*" element={
+              <ProtectedRoute allowedRoles={[ROLES.OWNER, ROLES.INVENTORY_MANAGER]}>
+                <InventoryPage />
+              </ProtectedRoute>
+            } />
 
-      {/* ── Catch-all redirect ──────────────────────────────────── */}
-      <Route
-        path="*"
-        element={
-          isAuthenticated
-            ? <Navigate to={ROLE_DEFAULT_ROUTES[role] || '/dashboard'} replace />
-            : <Navigate to="/login" replace />
-        }
-      />
-    </Routes>
+            {/* POS Terminal */}
+            <Route path="/pos" element={
+              <ProtectedRoute allowedRoles={[ROLES.OWNER, ROLES.BILLING_CLERK]}>
+                <POSPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/pos/*" element={
+              <ProtectedRoute allowedRoles={[ROLES.OWNER, ROLES.BILLING_CLERK]}>
+                <POSPage />
+              </ProtectedRoute>
+            } />
+          </Route>
+
+          {/* ── Catch-all redirect ──────────────────────────────────── */}
+          <Route
+            path="*"
+            element={
+              isAuthenticated
+                ? <Navigate to={ROLE_DEFAULT_ROUTES[role] || '/dashboard'} replace />
+                : <Navigate to="/login" replace />
+            }
+          />
+        </Routes>
+      </div>
+    </>
   );
 }
 

@@ -18,13 +18,15 @@
   flex-wrap: wrap;
   padding: var(--space-md);
   background: var(--color-panel-bg);
-  backdrop-filter: var(--backdrop-panel);
-  -webkit-backdrop-filter: var(--backdrop-panel);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
   border: 1px solid var(--color-panel-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--color-panel-shadow);
   transition: all 0.3s ease;
   color: var(--color-panel-text);
+  position: relative;
+  z-index: 200; /* Stacking context elevation for dropdowns inside */
 }
 
 .dashboard__controls-bar:hover {
@@ -56,10 +58,10 @@
   gap: var(--space-lg);
 }
 
-/* ── Top Grid (KPIs + Tender) ──────────────────────────────────────────*/
+/* ── Top Grid (KPIs + Tender + Velocity) ──────────────────────────────────────────*/
 .dashboard__top-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
   gap: var(--space-lg);
   align-items: stretch;
 }
@@ -68,20 +70,42 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-md);
+  min-width: 0;
 }
 
 .dashboard__tender-area {
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-width: 0;
 }
 
 /* ── Logistics Grid ────────────────────────────────────────────────────*/
 .dashboard__logistics-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: var(--space-lg);
-  align-items: start;
+  align-items: stretch;
+}
+
+/* Explicit Table Borders for Logistics */
+.dashboard__logistics-grid table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important; /* More defined outer border */
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.dashboard__logistics-grid th,
+.dashboard__logistics-grid td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important; /* Inner row borders */
+}
+
+/* Remove bottom border from last row to avoid double border */
+.dashboard__logistics-grid tr:last-child td {
+  border-bottom: none !important;
 }
 
 .dashboard__inventory-area,
@@ -91,8 +115,8 @@
   display: flex;
   flex-direction: column;
   background: var(--color-panel-bg);
-  backdrop-filter: var(--backdrop-panel);
-  -webkit-backdrop-filter: var(--backdrop-panel);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
   border: 1px solid var(--color-panel-border);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
@@ -100,6 +124,7 @@
   height: 100%;
   transition: all 0.3s ease;
   color: var(--color-panel-text);
+  min-width: 0;
 }
 
 .dashboard__inventory-area:hover,
@@ -107,6 +132,10 @@
 .dashboard__gst-area:hover,
 .dashboard__staff-area:hover {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.dashboard__gst-area {
+  height: fit-content;
 }
 
 /* ── Compliance Grid ───────────────────────────────────────────────────*/
@@ -123,6 +152,18 @@
   margin-bottom: var(--space-sm);
 }
 
+.staff-row-actions {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  display: flex;
+  gap: var(--space-xs);
+  justify-content: flex-end;
+}
+
+.data-table__tr:hover .staff-row-actions {
+  opacity: 1;
+}
+
 .dashboard-page .text-on-canvas-muted {
   color: var(--color-muted-text) !important;
 }
@@ -131,6 +172,7 @@
 .dashboard__transfers-area .data-table-container,
 .dashboard__staff-area .data-table-container {
   background: transparent;
+  box-shadow: none !important;
 }
 
 .dashboard__inventory-area .data-table__th,

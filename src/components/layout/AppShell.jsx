@@ -1,5 +1,6 @@
 /**
  * SGHASH — AppShell
+ * No canvas card. Content sits directly on the gradient background.
  */
 
 import { Outlet } from 'react-router-dom';
@@ -12,12 +13,10 @@ export default function AppShell() {
     <div className="app-shell">
       <Sidebar />
       <div className="app-shell__main">
-        <div className="app-shell__canvas">
-          <TopHeader />
-          <main className="app-shell__content">
-            <Outlet />
-          </main>
-        </div>
+        <TopHeader />
+        <main className="app-shell__content">
+          <Outlet />
+        </main>
       </div>
     </div>
   );

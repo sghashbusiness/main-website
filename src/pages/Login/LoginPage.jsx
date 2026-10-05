@@ -14,8 +14,6 @@ export default function LoginPage() {
 
   return (
     <div className="login-page">
-      {/* Animated ambient gradient background */}
-      <div className="login-page__ambient-bg anim-ambient-gradient"></div>
 
       <div className="login-page__content">
         <div className={`card-flipper ${view === 'recovery' ? 'is-flipped' : ''}`}>

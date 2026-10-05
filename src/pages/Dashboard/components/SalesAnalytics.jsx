@@ -7,11 +7,11 @@ import { useState, useEffect } from 'react';
 import { useBranch } from '../../../hooks/useBranch';
 import { getMetrics, getConsolidated } from '../../../services/analyticsService';
 import MetricCard from '../../../components/ui/MetricCard';
-import { IndianRupee, FileText, ShoppingBag, Tag } from 'lucide-react';
+import { IndianRupee, FileText, ShoppingBag, Tag, AlertTriangle } from 'lucide-react';
 import Spinner from '../../../components/ui/Spinner';
 
 export default function SalesAnalytics() {
-  const { selectedBranch, timePeriod } = useBranch();
+  const { selectedBranch, timePeriod, customDateRange } = useBranch();
   const [metrics, setMetrics] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,7 +23,6 @@ export default function SalesAnalytics() {
       setLoading(true);
       setError(null);
       
-      // If custom is selected, we simulate by defaulting to monthly for the mock
       const effectivePeriod = timePeriod === 'custom' ? 'monthly' : timePeriod;
       
       let res;
@@ -35,7 +34,22 @@ export default function SalesAnalytics() {
       
       if (isMounted) {
         if (res.success && res.data) {
-          setMetrics(res.data);
+          if (timePeriod === 'custom' && customDateRange.startDate && customDateRange.endDate) {
+            // Simulate data change based on custom range days
+            const days = Math.max(1, Math.round((new Date(customDateRange.endDate) - new Date(customDateRange.startDate)) / (1000 * 60 * 60 * 24)));
+            const scale = Math.max(0.1, days / 30);
+            
+            const scaledData = {
+              ...res.data,
+              revenue: Math.round(res.data.revenue * scale),
+              billVolume: Math.round(res.data.billVolume * scale),
+              itemsSold: Math.round(res.data.itemsSold * scale),
+              discounts: Math.round(res.data.discounts * scale)
+            };
+            setMetrics(scaledData);
+          } else {
+            setMetrics(res.data);
+          }
         } else {
           setError(res.error || 'No data available');
         }
@@ -45,7 +59,7 @@ export default function SalesAnalytics() {
 
     fetchMetrics();
     return () => { isMounted = false; };
-  }, [selectedBranch, timePeriod]);
+  }, [selectedBranch, timePeriod, customDateRange]);
 
   if (loading) {
     return (
@@ -92,6 +106,17 @@ export default function SalesAnalytics() {
         value={`₹${metrics.totalDiscounts.toLocaleString('en-IN')}`}
         icon={Tag}
       />
+      <div style={{ gridColumn: 'span 2' }}>
+        <MetricCard
+          variant="danger"
+          label="Actionable Alerts"
+          value="12 Issues"
+          unit="Requires Attention"
+          icon={AlertTriangle}
+          trend={-5}
+          trendLabel="Pending Logistics & Low Stock"
+        />
+      </div>
     </>
   );
 }

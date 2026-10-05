@@ -15,7 +15,7 @@ import { BRANCH_LABELS } from '../../../mock-data/db';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
 export default function MultiBranchPerformanceChart() {
-  const { timePeriod } = useBranch();
+  const { timePeriod, customDateRange } = useBranch();
   const { isDark } = useTheme();
   const [chartData, setChartData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -30,14 +30,25 @@ export default function MultiBranchPerformanceChart() {
       const res = await getBranchComparison(effectivePeriod);
         
       if (isMounted && res.success && res.data) {
-        setChartData(res.data);
+        if (timePeriod === 'custom' && customDateRange.startDate && customDateRange.endDate) {
+          const days = Math.max(1, Math.round((new Date(customDateRange.endDate) - new Date(customDateRange.startDate)) / (1000 * 60 * 60 * 24)));
+          const scale = Math.max(0.1, days / 30);
+          
+          const scaledData = res.data.map(d => ({
+            ...d,
+            revenue: Math.round(d.revenue * scale)
+          }));
+          setChartData(scaledData);
+        } else {
+          setChartData(res.data);
+        }
       }
       if (isMounted) setLoading(false);
     };
 
     fetchData();
     return () => { isMounted = false; };
-  }, [timePeriod]);
+  }, [timePeriod, customDateRange]);
 
   if (loading) {
     return (

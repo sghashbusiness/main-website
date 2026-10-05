@@ -93,7 +93,7 @@ export default function PasswordRecoveryCard({ onCancel }) {
   };
 
   return (
-    <GlassCard className="login-card login-card--recovery">
+    <GlassCard className="login-card login-card--dark login-card--recovery">
       <div className="login-card__header">
         <h2 className="login-card__title" style={{ fontSize: 'var(--font-size-xl)' }}>
           Account Recovery
@@ -108,7 +108,7 @@ export default function PasswordRecoveryCard({ onCancel }) {
       {step === 1 && (
         <form onSubmit={handleRequestOTP} className="login-card__form anim-fade-in-scale">
           <InputField
-            label="Email Address"
+            label={null}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -118,13 +118,13 @@ export default function PasswordRecoveryCard({ onCancel }) {
             disabled={isLoading}
           />
           {error && <div className="login-card__error">{error}</div>}
-          <div className="login-card__actions mt-4">
-            <button type="button" className="login-card__text-btn" onClick={onCancel} disabled={isLoading}>
-              Cancel
-            </button>
-            <PillButton type="submit" loading={isLoading} disabled={!email.trim() || isLoading} icon={ArrowRight} iconPosition="right">
+          <div className="login-card__actions-column mt-4">
+            <PillButton type="submit" loading={isLoading} disabled={!email.trim() || isLoading} icon={ArrowRight} iconPosition="right" fullWidth>
               Send OTP
             </PillButton>
+            <button type="button" className="login-card__text-btn" onClick={onCancel} disabled={isLoading}>
+              Back to Login
+            </button>
           </div>
         </form>
       )}
@@ -132,7 +132,7 @@ export default function PasswordRecoveryCard({ onCancel }) {
       {step === 2 && (
         <form onSubmit={handleVerifyOTP} className="login-card__form anim-fade-in-scale">
           <InputField
-            label="Email Address"
+            label={null}
             value={email}
             icon={Mail}
             disabled
@@ -148,13 +148,13 @@ export default function PasswordRecoveryCard({ onCancel }) {
               error={error}
             />
           </div>
-          <div className="login-card__actions mt-4">
+          <div className="login-card__actions-column mt-4">
+            <PillButton type="submit" loading={isLoading} disabled={otp.length < 6 || isLoading} icon={CheckCircle} iconPosition="right" fullWidth>
+              Verify Code
+            </PillButton>
             <button type="button" className="login-card__text-btn" onClick={() => setStep(1)} disabled={isLoading}>
               Change Email
             </button>
-            <PillButton type="submit" loading={isLoading} disabled={otp.length < 6 || isLoading} icon={CheckCircle} iconPosition="right">
-              Verify
-            </PillButton>
           </div>
         </form>
       )}
@@ -162,28 +162,28 @@ export default function PasswordRecoveryCard({ onCancel }) {
       {step === 3 && (
         <form onSubmit={handleResetPassword} className="login-card__form anim-fade-in-scale">
           <PasswordInput
-            label="New Password"
+            label={null}
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            placeholder="At least 6 characters"
+            placeholder="New password (min 6 chars)"
             autoFocus
             disabled={isLoading}
           />
           <PasswordInput
-            label="Confirm Password"
+            label={null}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Retype new password"
+            placeholder="Confirm new password"
             disabled={isLoading}
           />
           {error && <div className="login-card__error">{error}</div>}
-          <div className="login-card__actions mt-4">
-            <button type="button" className="login-card__text-btn" onClick={onCancel} disabled={isLoading}>
-              Cancel
-            </button>
-            <PillButton type="submit" loading={isLoading} disabled={!newPassword || !confirmPassword || isLoading} icon={Lock} iconPosition="left">
+          <div className="login-card__actions-column mt-4">
+            <PillButton type="submit" loading={isLoading} disabled={!newPassword || !confirmPassword || isLoading} icon={Lock} iconPosition="left" fullWidth>
               Reset Password
             </PillButton>
+            <button type="button" className="login-card__text-btn" onClick={onCancel} disabled={isLoading}>
+              Back to Login
+            </button>
           </div>
         </form>
       )}

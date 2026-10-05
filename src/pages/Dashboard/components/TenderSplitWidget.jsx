@@ -14,7 +14,7 @@ import { Pie } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function TenderSplitWidget() {
-  const { selectedBranch, timePeriod } = useBranch();
+  const { selectedBranch, timePeriod, customDateRange } = useBranch();
   const { isDark } = useTheme();
   const [tenderData, setTenderData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -31,14 +31,25 @@ export default function TenderSplitWidget() {
         : await getMetrics(selectedBranch, effectivePeriod);
         
       if (isMounted && res.success && res.data) {
-        setTenderData(res.data.tenderSplit);
+        if (timePeriod === 'custom' && customDateRange.startDate && customDateRange.endDate) {
+          const days = Math.max(1, Math.round((new Date(customDateRange.endDate) - new Date(customDateRange.startDate)) / (1000 * 60 * 60 * 24)));
+          const scale = Math.max(0.1, days / 30);
+          
+          setTenderData({
+            cash: Math.round(res.data.tenderSplit.cash * scale),
+            upi: Math.round(res.data.tenderSplit.upi * scale),
+            card: Math.round(res.data.tenderSplit.card * scale)
+          });
+        } else {
+          setTenderData(res.data.tenderSplit);
+        }
       }
       if (isMounted) setLoading(false);
     };
 
     fetchData();
     return () => { isMounted = false; };
-  }, [selectedBranch, timePeriod]);
+  }, [selectedBranch, timePeriod, customDateRange]);
 
   if (loading) {
     return (

@@ -10,7 +10,7 @@
 }
 
 .data-table-container:hover {
-  box-shadow: 0 0 16px var(--color-focus-glow);
+  box-shadow: 0 0 16px var(--color-primary-glow);
 }
 
 .data-table {
@@ -22,8 +22,8 @@
 .data-table__th {
   padding: 16px 24px;
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-caps);
   border-bottom: 1px solid var(--color-border);
