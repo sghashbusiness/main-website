@@ -58,6 +58,15 @@ const authReducer = (state, action) => {
     case 'CLEAR_ERROR':
       return { ...state, error: null };
 
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload,
+        }
+      };
+
     default:
       return state;
   }
@@ -119,11 +128,16 @@ export function AuthProvider({ children }) {
     dispatch({ type: 'CLEAR_ERROR' });
   }, []);
 
+  const updateUser = useCallback((updates) => {
+    dispatch({ type: 'UPDATE_USER', payload: updates });
+  }, []);
+
   const value = {
     ...state,
     login,
     logout,
     clearError,
+    updateUser,
   };
 
   return (

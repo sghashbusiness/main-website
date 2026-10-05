@@ -79,6 +79,14 @@ export async function getRecentTransactions(branch = 'all', limit = 10) {
 export async function exportGSTR1(period, branch = 'all') {
   await delay(1500 + Math.random() * 500);
 
+  if (period === 'yearly') {
+    return {
+      success: false,
+      data: null,
+      error: 'No data found for the selected period.',
+    };
+  }
+
   // Simulate CSV generation
   const csvHeader = 'Invoice No,Invoice Date,Customer GSTIN,Customer Name,HSN Code,Taxable Value,CGST Rate,CGST Amount,SGST Rate,SGST Amount,Total\n';
   const csvRows = [
@@ -94,7 +102,7 @@ export async function exportGSTR1(period, branch = 'all') {
 
   return {
     success: true,
-    data: { blob, filename: `GSTR1_${branch}_${period}_${Date.now()}.csv` },
+    data: { blob, filename: `GSTR1_${branch}_${period}_${Date.now()}.csv`, rows: csvRows.length },
     error: null,
   };
 }

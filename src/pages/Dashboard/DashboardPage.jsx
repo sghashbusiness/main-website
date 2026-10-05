@@ -44,11 +44,7 @@ export default function DashboardPage() {
           {timePeriod === 'custom' && <DateRangePicker />}
         </div>
         <div className="dashboard__controls-right" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
-          {/* Omnichannel Sync Indicator */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)', background: 'rgba(42, 192, 121, 0.1)', padding: '6px 12px', borderRadius: 'var(--radius-pill)', color: 'var(--color-success)', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>
-            <span style={{ display: 'block', width: 8, height: 8, borderRadius: '50%', background: 'var(--color-success)', boxShadow: '0 0 8px var(--color-success)' }} className="anim-pulse" />
-            Webstore Sync Active
-          </div>
+
           <BranchFilterDropdown />
         </div>
       </div>
@@ -80,7 +76,7 @@ export default function DashboardPage() {
         )}
 
         {/* ── Logistics & Stock ────────────────────────────────── */}
-        <section className="dashboard__section">
+        <section className="dashboard__section" id="logistics-stock-section">
           <h2 className="text-section-header">Global Logistics & Stock</h2>
           <div className="dashboard__logistics-grid">
             <div className="dashboard__transfers-area">

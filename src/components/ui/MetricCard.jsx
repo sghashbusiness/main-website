@@ -19,12 +19,19 @@ export default function MetricCard({
   icon: Icon,
   children,
   className = '',
+  onClick,
 }) {
   const trendDir = trend > 0 ? 'positive' : trend < 0 ? 'negative' : 'neutral';
   const TrendIcon = trend > 0 ? TrendingUp : trend < 0 ? TrendingDown : Minus;
+  
+  const clickableClass = onClick ? 'metric-card--clickable' : '';
 
   return (
-    <div className={`metric-card metric-card--${variant} ${className}`}>
+    <div 
+      className={`metric-card metric-card--${variant} ${clickableClass} ${className}`}
+      onClick={onClick}
+      role={onClick ? "button" : undefined}
+    >
       <div className="metric-card__header">
         <span className="metric-card__label">{label}</span>
         {Icon && <Icon size={18} className="metric-card__icon" />}

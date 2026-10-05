@@ -1,6 +1,6 @@
 /**
  * SGHASH — TenderSplitWidget
- * Displays payment methods split using Chart.js Doughnut.
+ * Displays payment methods split using Chart.js Pie.
  */
 
 import { useState, useEffect } from 'react';
@@ -10,14 +10,28 @@ import { getMetrics, getConsolidated } from '../../../services/analyticsService'
 import Spinner from '../../../components/ui/Spinner';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import Modal from '../../../components/ui/Modal';
+import DataTable from '../../../components/ui/DataTable';
+import SegmentedToggle from '../../../components/ui/SegmentedToggle';
+import PillButton from '../../../components/ui/PillButton';
+import { DownloadCloud, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+
+// Mock detailed data for the expanded view
+const MOCK_BRANCH_BREAKDOWN = [
+  { branch: 'Trivandrum (Main)', cash: 1200000, upi: 2500000, card: 1100000, prevTotal: 4200000 },
+  { branch: 'Kochi Hub', cash: 800000, upi: 1900000, card: 800000, prevTotal: 3100000 },
+  { branch: 'Calicut Outpost', cash: 500000, upi: 900000, card: 600000, prevTotal: 2200000 },
+];
 
 export default function TenderSplitWidget() {
   const { selectedBranch, timePeriod, customDateRange } = useBranch();
   const { isDark } = useTheme();
   const [tenderData, setTenderData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [comparePeriod, setComparePeriod] = useState('last_month');
 
   useEffect(() => {
     let isMounted = true;
@@ -61,14 +75,27 @@ export default function TenderSplitWidget() {
 
   if (!tenderData) return null;
 
+  const total = tenderData.cash + tenderData.upi + tenderData.card;
+  const formatValue = (val) => {
+    if (val >= 10000000) return `₹${(val / 10000000).toFixed(2)}Cr`;
+    if (val >= 100000) return `₹${(val / 100000).toFixed(1)}L`;
+    return `₹${val.toLocaleString('en-IN')}`;
+  };
+
+  const getPercent = (val, base = total) => Math.round((val / base) * 100);
+
   const data = {
-    labels: ['Cash', 'UPI', 'Card/EMI'],
+    labels: [
+      `Cash (${getPercent(tenderData.cash)}%)`, 
+      `UPI (${getPercent(tenderData.upi)}%)`, 
+      `Card/EMI (${getPercent(tenderData.card)}%)`
+    ],
     datasets: [
       {
         data: [tenderData.cash, tenderData.upi, tenderData.card],
         backgroundColor: ['#2ac079', '#2490d1', '#7843d1'],
         borderWidth: 0,
-        hoverOffset: 4,
+        hoverOffset: 8,
       },
     ],
   };
@@ -98,14 +125,126 @@ export default function TenderSplitWidget() {
     }
   };
 
+  // Columns for the expanded view DataTable
+  const expandedColumns = [
+    { label: 'Branch', key: 'branch', render: (val) => <strong style={{ color: 'var(--color-text-primary)', fontSize: '13px', whiteSpace: 'nowrap' }}>{val}</strong> },
+    { 
+      label: 'Cash', 
+      key: 'cash', 
+      align: 'right',
+      render: (val, row) => (
+        <div>
+          <div style={{ color: '#2ac079', fontWeight: 600, fontSize: '13px' }}>{formatValue(val)}</div>
+          <div style={{ fontSize: '11px', color: 'var(--color-muted-text)' }}>{getPercent(val, row.cash + row.upi + row.card)}%</div>
+        </div>
+      )
+    },
+    { 
+      label: 'UPI', 
+      key: 'upi', 
+      align: 'right',
+      render: (val, row) => (
+        <div>
+          <div style={{ color: '#2490d1', fontWeight: 600, fontSize: '13px' }}>{formatValue(val)}</div>
+          <div style={{ fontSize: '11px', color: 'var(--color-muted-text)' }}>{getPercent(val, row.cash + row.upi + row.card)}%</div>
+        </div>
+      )
+    },
+    { 
+      label: 'Card/EMI', 
+      key: 'card', 
+      align: 'right',
+      render: (val, row) => (
+        <div>
+          <div style={{ color: '#7843d1', fontWeight: 600, fontSize: '13px' }}>{formatValue(val)}</div>
+          <div style={{ fontSize: '11px', color: 'var(--color-muted-text)' }}>{getPercent(val, row.cash + row.upi + row.card)}%</div>
+        </div>
+      )
+    },
+    { 
+      label: 'Total Collected', 
+      key: 'total', 
+      align: 'right',
+      render: (_, row) => {
+        const rowTotal = row.cash + row.upi + row.card;
+        return <strong style={{ color: 'var(--color-panel-text)', fontSize: '13px' }}>{formatValue(rowTotal)}</strong>;
+      }
+    },
+    {
+      label: 'Growth',
+      key: 'growth',
+      align: 'right',
+      render: (_, row) => {
+        const rowTotal = row.cash + row.upi + row.card;
+        const growth = ((rowTotal - row.prevTotal) / row.prevTotal) * 100;
+        const isPos = growth >= 0;
+        const Icon = isPos ? ArrowUpRight : ArrowDownRight;
+        const color = isPos ? 'var(--color-success)' : 'var(--color-danger)';
+        return (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px', color, fontWeight: 600, fontSize: '13px' }}>
+            <Icon size={14} />
+            {Math.abs(growth).toFixed(1)}%
+          </div>
+        );
+      }
+    }
+  ];
+
   return (
-    <div className="metric-card" style={{ height: '100%', minHeight: 300 }}>
-      <div className="metric-card__header" style={{ marginBottom: 'var(--space-md)' }}>
-        <span className="metric-card__label">Tender Split</span>
+    <>
+      <div className="metric-card metric-card--clickable" style={{ height: '100%', minHeight: 320, justifyContent: 'flex-start', alignItems: 'stretch' }} onClick={() => setModalOpen(true)}>
+        <div className="metric-card__header" style={{ marginBottom: 'var(--space-md)', justifyContent: 'space-between', display: 'flex' }}>
+          <span className="metric-card__label" style={{ fontWeight: 600, color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-md)' }}>Tender Split</span>
+          <span style={{ fontSize: '11px', fontWeight: 600, padding: '4px 10px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: 'var(--radius-pill)', color: 'var(--color-text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            Expand
+          </span>
+        </div>
+        
+        <div style={{ position: 'relative', flex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ position: 'relative', width: '100%', flex: 1, minHeight: '200px' }}>
+            <div style={{ position: 'absolute', inset: 0, paddingBottom: '20px' }}>
+              <Pie data={data} options={options} />
+            </div>
+          </div>
+          
+          <div style={{ textAlign: 'center', marginTop: 'var(--space-sm)' }}>
+            <div style={{ fontSize: '12px', color: 'var(--color-muted-text)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Revenue</div>
+            <div style={{ fontSize: '28px', fontWeight: 800, color: 'var(--color-panel-text)', letterSpacing: '-0.02em' }}>{formatValue(total)}</div>
+          </div>
+        </div>
       </div>
-      <div style={{ flex: 1, position: 'relative' }}>
-        <Pie data={data} options={options} />
-      </div>
-    </div>
+
+      <Modal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title="Tender Split & Branch Performance"
+        size="xl"
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-xl)' }}>
+          
+          {/* Top Controls */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 'var(--space-md)' }}>
+            <p className="text-small text-on-canvas-muted" style={{ margin: 0, maxWidth: '80%' }}>
+              Detailed breakdown of payment methods collected across all branches, sorted by total revenue.
+            </p>
+          </div>
+
+          {/* Data Table */}
+          <DataTable 
+            columns={expandedColumns} 
+            data={MOCK_BRANCH_BREAKDOWN} 
+            keyField="branch" 
+          />
+
+          {/* Footer Actions */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 'var(--space-md)' }}>
+            <PillButton variant="secondary" icon={DownloadCloud}>
+              Export Breakdown
+            </PillButton>
+            <PillButton onClick={() => setModalOpen(false)}>Close</PillButton>
+          </div>
+        </div>
+      </Modal>
+    </>
   );
 }

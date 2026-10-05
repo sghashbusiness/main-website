@@ -2,7 +2,7 @@
  * SGHASH — TopHeader
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Bell, Sun, Moon } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
@@ -14,8 +14,23 @@ import './TopHeader.css';
 
 export default function TopHeader() {
   const location = useLocation();
-  const { user, role } = useAuth();
+  const { user, updateUser } = useAuth();
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [editedName, setEditedName] = useState(user?.displayName || '');
+  
+  // Sync when modal opens or user changes
+  useEffect(() => {
+    if (isProfileModalOpen) {
+      setEditedName(user?.displayName || '');
+    }
+  }, [isProfileModalOpen, user]);
+
+  const handleSaveProfile = () => {
+    if (updateUser) {
+      updateUser({ displayName: editedName });
+    }
+    setIsProfileModalOpen(false);
+  };
   
   // Simple mapping for demo purposes
   const titleMap = {
@@ -56,10 +71,14 @@ export default function TopHeader() {
     >
       <div className="flex-column" style={{ gap: '16px', padding: '8px 0' }}>
         <InputField label="Profile Picture" type="file" />
-        <InputField label="Display Name" defaultValue={user?.displayName} />
+        <InputField 
+          label="Display Name" 
+          value={editedName}
+          onChange={(e) => setEditedName(e.target.value)} 
+        />
         
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '8px' }}>
-          <PillButton onClick={() => setIsProfileModalOpen(false)}>Save Changes</PillButton>
+          <PillButton onClick={handleSaveProfile}>Save Changes</PillButton>
         </div>
       </div>
     </Modal>

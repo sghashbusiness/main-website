@@ -114,8 +114,8 @@ export default function MultiBranchPerformanceChart() {
   };
 
   return (
-    <div className="metric-card" style={{ height: 350 }}>
-      <div style={{ flex: 1, position: 'relative' }}>
+    <div className="metric-card" style={{ height: 350, alignItems: 'stretch', padding: 'var(--space-xl)' }}>
+      <div style={{ flex: 1, position: 'relative', width: '100%' }}>
         <Line data={data} options={options} />
       </div>
     </div>

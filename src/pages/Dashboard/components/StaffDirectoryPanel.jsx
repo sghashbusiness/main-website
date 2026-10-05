@@ -3,10 +3,11 @@
  * Directory table to select staff for Credential Manager.
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { getStaffDirectory } from '../../../services/staffService';
 import DataTable from '../../../components/ui/DataTable';
 import Spinner from '../../../components/ui/Spinner';
+import CustomDropdown from '../../../components/ui/CustomDropdown';
 import CredentialManagerModal from './CredentialManagerModal';
 import { BRANCH_LABELS } from '../../../mock-data/db';
 
@@ -16,6 +17,9 @@ export default function StaffDirectoryPanel() {
   
   const [selectedStaff, setSelectedStaff] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [filterRole, setFilterRole] = useState('all');
+  const [filterBranch, setFilterBranch] = useState('all');
 
   const fetchStaff = async () => {
     setLoading(true);
@@ -41,6 +45,25 @@ export default function StaffDirectoryPanel() {
     setSelectedStaff(staff);
     setIsModalOpen(true);
   };
+
+  const filteredStaff = useMemo(() => {
+    return staffList.filter(staff => {
+      const matchRole = filterRole === 'all' || staff.role === filterRole;
+      const matchBranch = filterBranch === 'all' || staff.branch === filterBranch;
+      return matchRole && matchBranch;
+    });
+  }, [staffList, filterRole, filterBranch]);
+
+  const uniqueRoles = useMemo(() => {
+    const roles = new Set(staffList.map(s => s.role));
+    return Array.from(roles).map(r => ({ label: String(r).replace('_', ' ').toUpperCase(), value: r }));
+  }, [staffList]);
+
+  const roleOptions = [{ label: 'All Roles', value: 'all' }, ...uniqueRoles];
+  const branchOptions = [
+    { label: 'All Branches', value: 'all' },
+    ...Object.entries(BRANCH_LABELS).map(([value, label]) => ({ label, value }))
+  ];
 
   const columns = [
     { key: 'name', label: 'Name', sortable: true, render: (val) => <span style={{ fontWeight: 500 }}>{val}</span> },
@@ -87,12 +110,28 @@ export default function StaffDirectoryPanel() {
   return (
     <>
       <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-        <p className="text-small text-on-canvas-muted" style={{ marginBottom: 'var(--space-md)' }}>
-          Click on a staff member to manage their credentials or access state.
-        </p>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 'var(--space-md)', flexWrap: 'wrap', gap: 'var(--space-sm)' }}>
+          <h3 style={{ margin: 0, color: 'var(--color-panel-text)', fontSize: 'var(--font-size-lg)', fontWeight: 'var(--font-weight-semibold)' }}>
+            User Accounts Status
+          </h3>
+          <div style={{ display: 'flex', gap: 'var(--space-sm)' }}>
+            <CustomDropdown 
+              value={filterBranch}
+              onChange={setFilterBranch}
+              options={branchOptions}
+              placeholder="Branch"
+            />
+            <CustomDropdown 
+              value={filterRole}
+              onChange={setFilterRole}
+              options={roleOptions}
+              placeholder="Role"
+            />
+          </div>
+        </div>
         <DataTable
           columns={columns}
-          data={staffList}
+          data={filteredStaff}
           keyField="id"
           onRowClick={handleRowClick}
           className="flex-1"

@@ -1,8 +1,11 @@
 .metric-card {
   border-radius: var(--radius-xl);
-  padding: var(--space-xl);
+  padding: 24px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   position: relative;
   overflow: hidden;
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease;
@@ -21,6 +24,14 @@
   z-index: 2;
 }
 
+.metric-card--clickable {
+  cursor: pointer;
+}
+
+.metric-card--clickable:hover {
+  border-color: var(--color-primary);
+}
+
 /* ── Standard Variant ──────────────────────────────────────────────────*/
 .metric-card--dark .metric-card__label,
 .metric-card--standard .metric-card__label {
@@ -35,6 +46,16 @@
 .metric-card--dark .metric-card__icon,
 .metric-card--standard .metric-card__icon {
   color: var(--color-panel-text);
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  opacity: 0.8;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .metric-card--dark .metric-card__unit,
@@ -65,6 +86,16 @@
 
 .metric-card--white .metric-card__icon {
   color: var(--color-text-secondary);
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  opacity: 0.8;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ── Mint Variant ──────────────────────────────────────────────────────*/
@@ -86,13 +117,53 @@
 
 .metric-card--mint .metric-card__icon {
   color: var(--color-primary);
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  opacity: 0.8;
+  padding: 8px;
+  background: rgba(42, 192, 121, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Danger Variant (From SalesAnalytics) ──────────────────────────────*/
+.metric-card--danger {
+  background: var(--color-danger-subtle) !important;
+  border-color: rgba(224, 84, 115, 0.3) !important;
+}
+
+.metric-card--danger .metric-card__label {
+  color: var(--color-danger);
+}
+
+.metric-card--danger .metric-card__value, 
+.metric-card--danger .metric-card__unit {
+  color: var(--color-danger);
+}
+
+.metric-card--danger .metric-card__icon {
+  color: var(--color-danger);
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  opacity: 0.8;
+  padding: 8px;
+  background: rgba(224, 84, 115, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ── Sub-elements ──────────────────────────────────────────────────────*/
 .metric-card__header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  width: 100%;
 }
 
 .metric-card__label {
@@ -101,7 +172,7 @@
 }
 
 .metric-card__value {
-  font-size: 42px; /* Huge value */
+  font-size: 36px; /* Scaled down slightly */
   font-weight: var(--font-weight-bold);
   line-height: 1.1;
   letter-spacing: -0.03em;

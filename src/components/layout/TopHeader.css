@@ -45,21 +45,22 @@
   align-items: center;
   justify-content: center;
   color: var(--color-text-secondary);
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   transition: all var(--transition-fast);
   position: relative;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(92, 110, 220, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .top-header__icon-btn:hover {
-  background: rgba(255, 255, 255, 0.80);
+  background: rgba(255, 255, 255, 0.1);
   color: var(--color-text-primary);
-  box-shadow: 0 4px 12px rgba(92, 110, 220, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* ── Theme Toggle ──────────────────────────────────────────────────────*/
@@ -87,20 +88,20 @@
   align-items: center;
   gap: var(--space-sm);
   padding: 4px 14px 4px 4px;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
   transition: all var(--transition-fast);
-  box-shadow: 0 2px 8px rgba(92, 110, 220, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .top-header__profile:hover {
-  background: rgba(255, 255, 255, 0.80);
-  border-color: rgba(92, 110, 220, 0.3);
-  box-shadow: 0 4px 16px rgba(92, 110, 220, 0.12);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .top-header__avatar {
