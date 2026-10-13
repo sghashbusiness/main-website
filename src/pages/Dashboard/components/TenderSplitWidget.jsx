@@ -6,7 +6,7 @@
 import { useState, useEffect } from 'react';
 import { useBranch } from '../../../hooks/useBranch';
 import { useTheme } from '../../../hooks/useTheme';
-import { getMetrics, getConsolidated } from '../../../services/analyticsService';
+import { getMetrics, getConsolidated, getTenderBreakdown } from '../../../services/analyticsService';
 import Spinner from '../../../components/ui/Spinner';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
@@ -18,17 +18,13 @@ import { DownloadCloud, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-// Mock detailed data for the expanded view
-const MOCK_BRANCH_BREAKDOWN = [
-  { branch: 'Trivandrum (Main)', cash: 1200000, upi: 2500000, card: 1100000, prevTotal: 4200000 },
-  { branch: 'Kochi Hub', cash: 800000, upi: 1900000, card: 800000, prevTotal: 3100000 },
-  { branch: 'Calicut Outpost', cash: 500000, upi: 900000, card: 600000, prevTotal: 2200000 },
-];
+// (Removed static MOCK_BRANCH_BREAKDOWN)
 
 export default function TenderSplitWidget() {
   const { selectedBranch, timePeriod, customDateRange } = useBranch();
   const { isDark } = useTheme();
   const [tenderData, setTenderData] = useState(null);
+  const [breakdownData, setBreakdownData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [comparePeriod, setComparePeriod] = useState('last_month');
@@ -44,6 +40,8 @@ export default function TenderSplitWidget() {
         ? await getConsolidated(effectivePeriod) 
         : await getMetrics(selectedBranch, effectivePeriod);
         
+      const breakdownRes = await getTenderBreakdown(effectivePeriod);
+        
       if (isMounted && res.success && res.data) {
         if (timePeriod === 'custom' && customDateRange.startDate && customDateRange.endDate) {
           const days = Math.max(1, Math.round((new Date(customDateRange.endDate) - new Date(customDateRange.startDate)) / (1000 * 60 * 60 * 24)));
@@ -54,8 +52,21 @@ export default function TenderSplitWidget() {
             upi: Math.round(res.data.tenderSplit.upi * scale),
             card: Math.round(res.data.tenderSplit.card * scale)
           });
+
+          if (breakdownRes.success && breakdownRes.data) {
+            setBreakdownData(breakdownRes.data.map(b => ({
+              ...b,
+              cash: Math.round(b.cash * scale),
+              upi: Math.round(b.upi * scale),
+              card: Math.round(b.card * scale),
+              prevTotal: Math.round(b.prevTotal * scale)
+            })));
+          }
         } else {
           setTenderData(res.data.tenderSplit);
+          if (breakdownRes.success && breakdownRes.data) {
+            setBreakdownData(breakdownRes.data);
+          }
         }
       }
       if (isMounted) setLoading(false);
@@ -194,7 +205,7 @@ export default function TenderSplitWidget() {
     <>
       <div className="metric-card metric-card--clickable" style={{ height: '100%', minHeight: 320, justifyContent: 'flex-start', alignItems: 'stretch' }} onClick={() => setModalOpen(true)}>
         <div className="metric-card__header" style={{ marginBottom: 'var(--space-md)', justifyContent: 'space-between', display: 'flex' }}>
-          <span className="metric-card__label" style={{ fontWeight: 600, color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-md)' }}>Tender Split</span>
+          <span className="metric-card__label" style={{ fontWeight: 600, color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-md)' }}>Revenue by Payment Method</span>
           <span style={{ fontSize: '11px', fontWeight: 600, padding: '4px 10px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: 'var(--radius-pill)', color: 'var(--color-text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Expand
           </span>
@@ -217,7 +228,7 @@ export default function TenderSplitWidget() {
       <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        title="Tender Split & Branch Performance"
+        title="Revenue by Payment Method & Branch Performance"
         size="xl"
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-xl)' }}>
@@ -232,7 +243,7 @@ export default function TenderSplitWidget() {
           {/* Data Table */}
           <DataTable 
             columns={expandedColumns} 
-            data={MOCK_BRANCH_BREAKDOWN} 
+            data={breakdownData} 
             keyField="branch" 
           />
 

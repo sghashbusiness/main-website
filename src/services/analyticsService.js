@@ -10,6 +10,8 @@ import {
   getMultiBranchComparison,
   getConsolidatedMetrics,
   recentTransactions,
+  salesMetrics,
+  BRANCH_LABELS
 } from '../mock-data/db';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -49,6 +51,38 @@ export async function getConsolidated(period = 'monthly') {
 
   const data = getConsolidatedMetrics(period);
   return { success: true, data, error: null };
+}
+
+/**
+ * Get tender split breakdown by branch for the modal.
+ */
+export async function getTenderBreakdown(period = 'monthly') {
+  await delay(300 + Math.random() * 200);
+
+  const periodData = salesMetrics[period];
+  if (!periodData) {
+    return { success: false, data: null, error: 'No data available' };
+  }
+
+  const breakdown = Object.entries(periodData).map(([branchKey, data]) => {
+    const currentTotal = data.tenderSplit.cash + data.tenderSplit.upi + data.tenderSplit.card;
+    // mock prevTotal to be slightly different to show realistic growth (-5% to +15%)
+    const growthFactor = 1 + (Math.random() * 0.20 - 0.05); 
+    const prevTotal = Math.round(currentTotal / growthFactor);
+
+    return {
+      branch: BRANCH_LABELS?.[branchKey] || branchKey,
+      cash: data.tenderSplit.cash,
+      upi: data.tenderSplit.upi,
+      card: data.tenderSplit.card,
+      prevTotal: prevTotal
+    };
+  });
+
+  // Sort by highest total collected
+  breakdown.sort((a, b) => (b.cash + b.upi + b.card) - (a.cash + a.upi + a.card));
+
+  return { success: true, data: breakdown, error: null };
 }
 
 /**
